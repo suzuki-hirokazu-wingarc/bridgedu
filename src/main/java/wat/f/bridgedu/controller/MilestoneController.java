@@ -3,10 +3,7 @@ package wat.f.bridgedu.controller;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,28 +15,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.AllArgsConstructor;
-import wat.f.bridgedu.domain.MilestoneForm;
 import wat.f.bridgedu.domain.MilestoneService;
+import wat.f.bridgedu.domain.UserDetailsImpl;
 
 @AllArgsConstructor
 @Controller
 @RequestMapping("milestones")
 public class MilestoneController {
     private MilestoneService milestoneService;// = new MilestoneService();
+    
     @GetMapping
-    public String showList(Model model) {
-        model.addAttribute("milestoneList", milestoneService.findAll());
+    public String showList(@AuthenticationPrincipal UserDetailsImpl user, Model model) {
+        model.addAttribute("milestoneList", milestoneService.findOfUser(user.getUsername()));
         return "milestones/list";
     }
-
+    
     @PostMapping
     public String create(
+        @AuthenticationPrincipal UserDetailsImpl user,
         @Validated MilestoneForm form,
         BindingResult bindingResult, Model model
     ) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        UserDetails user = (UserDetails) authentication.getPrincipal();
         if (bindingResult.hasErrors()) {
             return showCreationForm(form);
         }

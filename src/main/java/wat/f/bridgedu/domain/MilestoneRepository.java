@@ -14,7 +14,7 @@ public interface MilestoneRepository {
     List<MilestoneEntity> findAll();
 
     @Select("select * from milestones where username=#{username}")
-    List<MilestoneEntity> findMilestoneofUser(@Param("username") String username);
+    List<MilestoneEntity> findOfUser(@Param("username") String username);
 
     @Select("select * from milestones where id=#{id}")
     MilestoneEntity find(@Param("id") long id);

@@ -1,4 +1,4 @@
-package wat.f.bridgedu.controller;
+package wat.f.bridgedu.domain;
 
 import java.util.Collection;
 
@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import wat.f.bridgedu.domain.UserEntity;
 
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
@@ -21,7 +20,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetails from(UserEntity user, Collection<? extends GrantedAuthority> authorities) {
         return new UserDetailsImpl(
-            user.getName(), user.getDisplay_name(), user.getPassword(), user.isEnabled(), authorities
+            user.getName(), user.getDisplayName(), user.getPassword(), user.isEnabled(), authorities
         );
     }
 

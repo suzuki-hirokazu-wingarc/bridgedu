@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users | BRIDGEDU</title>
+</head>
+<body>
+    <a th:href="@{/}">Top Page</a>
+    <!-- <a href="./creationForm.html" th:href="@{milestones/creationForm}">Create</a> -->
+    <h1>生徒一覧</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>生徒番号</th>
+                <th>氏名</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:if="${user.enabled}">
+                    <a href="/users" th:href="@{/users/{name}(name=${user.name})}">
+                        <span th:text="${user.name}"></span>
+                    </a>
+                </td>
+                <td th:if="${user.enabled}">
+                    <a href="/users" th:href="@{/users/{name}(name=${user.name})}">
+                        <span th:text="${user.displayName}"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

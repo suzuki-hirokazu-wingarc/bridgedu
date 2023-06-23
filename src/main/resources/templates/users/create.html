@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生徒作成 | BRIDGEDU</title>
+</head>
+<body>
+    <h1>BRIDGEDU 教師 | 生徒作成</h1>
+    <a th:href="@{/users}">戻る</a><br>
+
+    <form th:action="@{/users}" th:object="${userForm}" method="post">
+        <div>
+            <label for="username">id</label>
+            <input id="username" type="text" th:field="*{name}"><br>
+        </div>
+        <div>
+            <label for="display-name">名前</label>
+            <input id="display-name" type="text" th:field="*{displayName}"><br>
+        </div>
+        <div>
+            <label for="password">パスワード</label>
+            <input id="password" type="password" th:field="*{password}"><br>
+        </div>
+        <!-- <label>画像</label><input type="image"><br> -->
+        <button type="submit">生徒作成</button>
+    </form>
+</body>
+</html>

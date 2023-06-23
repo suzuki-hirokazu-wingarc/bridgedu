@@ -16,10 +16,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .authorizeRequests(auth -> auth.antMatchers("/login**").permitAll())
+            .authorizeRequests(auth -> auth.antMatchers("/users").hasAnyRole("ADMIN", "TEACHER"))
             .authorizeRequests(auth -> auth.antMatchers("/h2-console/**").hasRole("ADMIN"))
             .csrf(auth -> auth.ignoringAntMatchers("/h2-console/**"))
             .headers(auth -> auth.frameOptions(frame -> frame.sameOrigin()))
-            .authorizeRequests(auth -> auth.anyRequest().hasRole("USER"))
+            .authorizeRequests(auth -> auth.anyRequest().hasAnyRole("ADMIN", "TEACHER", "STUDENT"))
             .formLogin(auth -> auth.loginPage("/login")
             .usernameParameter("username").passwordParameter("password"))
             .build();

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class UserEntity {
     private String name;
-    private String display_name;
+    private String displayName;
     private String password;
     private boolean enabled;
 }

@@ -12,11 +12,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MilestoneService {
     private final MilestoneRepository milestoneRepository;
-
-    public List<MilestoneEntity> findAll() {
-        return milestoneRepository.findAll();
+    
+    public List<MilestoneEntity> findOfUser(String username) {
+        return milestoneRepository.findOfUser(username);
     }
-
+    
     public MilestoneEntity find(long id) {
         return milestoneRepository.find(id);
     }

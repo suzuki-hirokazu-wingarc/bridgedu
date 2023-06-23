@@ -1,4 +1,4 @@
-package wat.f.bridgedu.domain;
+package wat.f.bridgedu.controller;
 
 import java.sql.Date;
 
@@ -15,10 +15,7 @@ public class MilestoneForm {
     @NotBlank
     @Size(max = 256)
     private String memo;
-    // @NotBlank
     private byte importance;
-    // @NotBlank
     private byte archivement;
-    // @NotBlank
     private Date goal;
 }
