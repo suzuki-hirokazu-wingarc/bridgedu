@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestones | BRIDGEDU</title>
+</head>
+<body>
+    <a th:href="@{/}">Top Page</a>
+    <!-- <a href="./creationForm.html" th:href="@{milestones/creationForm}">Create</a> -->
+    <h1>Milestones</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Milestone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="milestone : ${milestoneList}">
+                <td>
+                    <a href="/milestones" th:href="@{/milestones/{id}(id=${milestone.id})}">
+                        <span th:text="${milestone.id}"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="/milestones" th:href="@{/milestones/{id}(id=${milestone.id})}">
+                        <span th:text="${milestone.title}"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package wat.f.bridgedu;
+package wat.f.bridgedu.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
