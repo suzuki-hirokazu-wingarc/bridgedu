@@ -14,4 +14,4 @@ spring:
             encoding: UTF-8
             schema-locations:
                 - classpath:schema.sql
-                - classpath:org/springframework/security/core/userdetails/jdbc/users.ddl
+                # - classpath:org/springframework/security/core/userdetails/jdbc/users.ddl

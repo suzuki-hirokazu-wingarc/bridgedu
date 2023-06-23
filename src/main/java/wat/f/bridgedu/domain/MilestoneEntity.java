@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class MilestoneEntity {
     private long id;
-    private long userid;
+    private String username;
     private String title;
     private String memo;
     private byte importance;

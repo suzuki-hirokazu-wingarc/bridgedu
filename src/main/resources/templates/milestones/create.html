@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create | BRIDGEDU</title>
+</head>
+<body>
+    <h1>Creation</h1>
+    <a href="../index.html" th:href="@{/}">Top Page</a>
+
+    <form action="/milestones" th:action=="@{/milestones}" th:object="${milestoneForm}" method="post">
+        <div>
+            <label for="milestone-title">Name</label>
+            <input id="milestone-title" type="text" th:field="*{title}">
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">(error)</p>
+        </div>
+        <div>
+            <label for="milestone-memo">Memo</label>
+            <textarea id="milestone-memo" cols="30" rows="10" th:field="*{memo}"></textarea>
+            <p th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}">(error)</p>
+        </div>
+        <div>
+            <label for="milestone-importance">Importance</label>
+            <input id="milestone-importance" type="number" th:field="*{importance}"></textarea>
+            <p th:if="${#fields.hasErrors('importance')}" th:errors="*{importance}">(error)</p>
+        </div>
+        <div>
+            <label for="milestone-archivement">Archivement</label>
+            <input id="milestone-archivement" type="number" th:field="*{archivement}"></textarea>
+            <p th:if="${#fields.hasErrors('archivement')}" th:errors="*{archivement}">(error)</p>
+        </div>
+        <div>
+            <label for="milestone-goal">Goal</label>
+            <input id="milestone-goal" type="date" th:field="*{goal}"></textarea>
+            <p th:if="${#fields.hasErrors('goal')}" th:errors="*{goal}">(error)</p>
+        </div>
+        <div>
+            <input type="submit" value="Create">
+        </div>
+    </form>
+</body>
+</html>
