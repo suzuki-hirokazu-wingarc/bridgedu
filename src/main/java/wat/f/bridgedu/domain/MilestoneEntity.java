@@ -12,6 +12,7 @@ public class MilestoneEntity {
     private long userid;
     private String title;
     private String memo;
+    private byte importance;
     private byte archivement;
     private Date goal;
     private Date create;

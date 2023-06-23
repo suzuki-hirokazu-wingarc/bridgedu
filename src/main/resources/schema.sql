@@ -5,6 +5,7 @@ create table milestones (
     userid BIGINT NOT NULL,
     title VARCHAR(255) NOT NULL,
     memo VARCHAR(255) NOT NULL,
+    importance TINYINT NOT NULL,
     achievement TINYINT NOT NULL,
     goal DATE NOT NULL,
     created DATE NOT NULL,
