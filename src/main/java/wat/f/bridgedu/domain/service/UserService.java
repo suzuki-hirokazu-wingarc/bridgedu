@@ -1,5 +1,6 @@
 package wat.f.bridgedu.domain.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class UserService {
         String password,
         boolean enabled
     ) {
-        UserEntity user = new UserEntity(username, displayName, password, enabled);
+        UserEntity user = new UserEntity(username, displayName, password, enabled, Collections.emptyList());
         AuthorityEntity authority = new AuthorityEntity(username, "ROLE_STUDENT");
         userRepository.save(user);
         authorityRepository.save(authority);

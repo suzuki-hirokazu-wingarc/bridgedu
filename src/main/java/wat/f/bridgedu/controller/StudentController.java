@@ -17,8 +17,8 @@ import wat.f.bridgedu.domain.service.UserService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("users")
-public class UserController {
+@RequestMapping("students")
+public class StudentController {
     private final UserService userService;
     
     @Autowired
@@ -30,21 +30,21 @@ public class UserController {
         return "users/list";
     }
     
-    @GetMapping("create")
-    public String create(@ModelAttribute UserForm form) {
+    @GetMapping("creation")
+    public String showCreation(@ModelAttribute UserForm form) {
         return "users/create";
     }
 
-    @PostMapping
+    @PostMapping("creation")
     public String create(@Validated UserForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return create(form);
+            return showCreation(form);
         }
         userService.create(
             form.getName(),
             form.getDisplayName(),
             passwordEncoder.encode(form.getPassword()),
             true);
-        return "redirect:/users";
+        return "redirect:/students";
     }
 }
