@@ -22,10 +22,10 @@
                     <a th:if="${#request.isUserInRole('ROLE_TEACHER')}" class="nav-link" th:href="@{./users/create}">生徒作成</a>
                 </li>
                 <li class="nav-item">
-                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{./milestones}">マイルストーン</a>
+                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{../milestones}">マイルストーン</a>
                 </li>
                 <li class="nav-item">
-                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{./milestones/create}">マイルストーン作成</a>
+                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{../milestones/create}">マイルストーン作成</a>
                 </li>
             </ul>
 
@@ -47,7 +47,7 @@
                     <th>氏名</th>
                 </tr>
             </thead>
-                <tr  class="clickable-row" th:data-href="@{/users/{name}(name=${user.name})}" th:each="user : ${userList}">
+                <tr  class="clickable-row" th:data-href="@{/milestones/{name}(name=${user.name})}" th:each="user : ${userList}">
                     <!-- TODO 非teacherなら表示する必要アリ -->
                     <td th:if="${user.enabled}">
                         <span th:text="${user.name}"></span>
