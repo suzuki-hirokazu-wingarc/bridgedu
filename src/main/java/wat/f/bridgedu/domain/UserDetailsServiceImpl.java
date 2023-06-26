@@ -20,14 +20,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(username);
         try {
-            UserEntity userEntity = userDetailsRepository.find(username);
-            List<GrantedAuthority> authorities = authorityRepository.findAuthorities(username).stream()
+            UserEntity userEntity = userDetailsRepository.findById(username).get();
+            System.out.println(userEntity);
+            List<GrantedAuthority> authorities = authorityRepository.findByUsername(username).stream()
                 .map(a -> new SimpleGrantedAuthority(a.getAuthority()))
                 .collect(Collectors.toList());
             UserDetails userDetails = UserDetailsImpl.from(userEntity, authorities);
             return userDetails;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UsernameNotFoundException(username, e);
         }
     }

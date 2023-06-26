@@ -1,6 +1,5 @@
 package wat.f.bridgedu.domain;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,26 +12,18 @@ import lombok.RequiredArgsConstructor;
 public class MilestoneService {
     private final MilestoneRepository milestoneRepository;
     
-    public List<MilestoneEntity> findOfUser(String username) {
-        return milestoneRepository.findOfUser(username);
+    public List<MilestoneEntity> findByUser(String username) {
+        return milestoneRepository.findByUsername(username);
+        // return milestoneRepository.findOfUser(username);
     }
     
     public MilestoneEntity find(long id) {
-        return milestoneRepository.find(id);
+        return milestoneRepository.findById(id).get();
     }
 
     @Transactional
-    public void create(
-        String username,
-        String title,
-        String memo,
-        byte importance,
-        byte achievement,
-        Date goal,
-        Date created,
-        Date modified
-    ) {
-        milestoneRepository.insert(username, title, memo, importance, achievement, goal, created, modified);
+    public void create(MilestoneEntity milestone) {
+        milestoneRepository.save(milestone);
     }
     
 }

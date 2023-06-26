@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreateTask | BRIDGEDU</title>
+</head>
+<body>
+    <h1>TaskCreation</h1>
+    <a th:href="@{/}">Top Page</a>
+
+    <form th:action="@{/milestones/{id}/create(id=${milestoneId})}" th:object="${taskForm}" method="post">
+        <div>
+            <label for="name">Name</label>
+            <input id="name" type="text" th:field="*{name}">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">(error)</p>
+        </div>
+        <div>
+            <label for="task-description">Description</label>
+            <textarea id="task-description" cols="30" rows="10" th:field="*{description}"></textarea>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">(error)</p>
+        </div>
+        <div>
+            <label for="task-importance">Importance</label>
+            <input id="task-importance" type="number" th:field="*{importance}"></textarea>
+            <p th:if="${#fields.hasErrors('importance')}" th:errors="*{importance}">(error)</p>
+        </div>
+        <div>
+            <label for="task-archivement">Archivement</label>
+            <input id="task-archivement" type="number" th:field="*{archivement}"></textarea>
+            <p th:if="${#fields.hasErrors('archivement')}" th:errors="*{archivement}">(error)</p>
+        </div>
+        <div>
+            <input type="submit" value="Create">
+        </div>
+    </form>
+</body>
+</html>
