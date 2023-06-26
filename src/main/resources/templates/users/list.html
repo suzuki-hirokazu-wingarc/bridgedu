@@ -48,6 +48,7 @@
                 </tr>
             </thead>
                 <tr  class="clickable-row" th:data-href="@{/users/{name}(name=${user.name})}" th:each="user : ${userList}">
+                    <!-- TODO 非teacherなら表示する必要アリ -->
                     <td th:if="${user.enabled}">
                         <span th:text="${user.name}"></span>
                     </td>
