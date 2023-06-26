@@ -1,11 +1,22 @@
 package wat.f.bridgedu.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@Table(name = "users")
 public class UserEntity {
+    @Id
     private String name;
     private String displayName;
     private String password;

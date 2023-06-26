@@ -1,20 +1,16 @@
 package wat.f.bridgedu.domain;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, String> {
+    // @Select("select * from users")
+    // List<UserEntity> findAll();
 
-@Mapper
-public interface UserRepository {
-    @Select("select * from users")
-    List<UserEntity> findAll();
+    // @Select("select * from users where name=#{name}")
+    // UserEntity find(@Param("name") String name);
 
-    @Select("select * from users where name=#{name}")
-    UserEntity find(@Param("name") String name);
-
-    @Insert("insert into users(name, display_name, password, enabled) values (#{name}, #{displayName}, #{password}, #{enabled})")
-    void create(@Param("name") String name, @Param("displayName") String displayName, @Param("password") String password, @Param("enabled") boolean enabled);
+    // @Insert("insert into users(name, display_name, password, enabled) values (#{name}, #{displayName}, #{password}, #{enabled})")
+    // void create(@Param("name") String name, @Param("displayName") String displayName, @Param("password") String password, @Param("enabled") boolean enabled);
 }

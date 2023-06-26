@@ -24,8 +24,10 @@ public class UserService {
         String password,
         boolean enabled
     ) {
-        userRepository.create(username, displayName, password, enabled);
-        authorityRepository.create(username, "ROLE_STUDENT");
+        UserEntity user = new UserEntity(username, displayName, password, enabled);
+        AuthorityEntity authority = new AuthorityEntity(username, "ROLE_STUDENT");
+        userRepository.save(user);
+        authorityRepository.save(authority);
     }
 
 }

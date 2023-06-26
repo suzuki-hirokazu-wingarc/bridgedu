@@ -2,18 +2,18 @@ package wat.f.bridgedu.domain;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@Mapper
-public interface AuthorityRepository {
+@Repository
+public interface AuthorityRepository extends JpaRepository<AuthorityEntity, String> {
 
-    @Select("select * from authorities where username=#{username}")
-    List<AuthorityEntity> findAuthorities(@Param("username") String username);
+    List<AuthorityEntity> findByUsername(String username);
 
-    @Insert("insert into authorities(username, authority) values (#{username}, #{authority})")
-    void create(@Param("username") String username, @Param("authority") String authority);
+    // @Select("select * from authorities where username=#{username}")
+    // List<AuthorityEntity> findAuthorities(@Param("username") String username);
+
+    // @Insert("insert into authorities(username, authority) values (#{username}, #{authority})")
+    // void create(@Param("username") String username, @Param("authority") String authority);
 
 }

@@ -8,3 +8,7 @@ INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('admin', 'ROLE_TEACHER');
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('admin', 'ROLE_STUDENT');
+
+INSERT INTO TASKS(milestone_id, name, description, importance, achievement) values
+(1, 'aaa', 'aaaaaa', 1, 0),
+(2, 'bbb', 'bbbbbb', 1, 0);
