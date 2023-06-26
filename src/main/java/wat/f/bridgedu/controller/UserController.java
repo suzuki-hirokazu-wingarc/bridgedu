@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping
     public String create(@Validated UserForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return list(model);
+            return create(form);
         }
         userService.create(
             form.getName(),
