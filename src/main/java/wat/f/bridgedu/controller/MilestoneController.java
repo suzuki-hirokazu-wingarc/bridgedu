@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
-import wat.f.bridgedu.domain.MilestoneEntity;
-import wat.f.bridgedu.domain.MilestoneService;
-import wat.f.bridgedu.domain.UserDetailsImpl;
+import wat.f.bridgedu.controller.form.MilestoneForm;
+import wat.f.bridgedu.domain.entity.MilestoneEntity;
+import wat.f.bridgedu.domain.entity.UserDetailsImpl;
+import wat.f.bridgedu.domain.service.MilestoneService;
 
 @AllArgsConstructor
 @Controller

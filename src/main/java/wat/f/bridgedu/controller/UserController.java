@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
-import wat.f.bridgedu.domain.UserService;
+import wat.f.bridgedu.controller.form.UserForm;
+import wat.f.bridgedu.domain.service.UserService;
 
 @RequiredArgsConstructor
 @Controller

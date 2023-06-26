@@ -1,4 +1,4 @@
-package wat.f.bridgedu.domain;
+package wat.f.bridgedu.domain.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
-import wat.f.bridgedu.domain.MilestoneService;
-import wat.f.bridgedu.domain.TaskEntity;
-import wat.f.bridgedu.domain.TaskService;
-import wat.f.bridgedu.domain.UserDetailsImpl;
+import wat.f.bridgedu.controller.form.TaskForm;
+import wat.f.bridgedu.domain.entity.TaskEntity;
+import wat.f.bridgedu.domain.entity.UserDetailsImpl;
+import wat.f.bridgedu.domain.service.MilestoneService;
+import wat.f.bridgedu.domain.service.TaskService;
 
 @RequiredArgsConstructor
 @Controller

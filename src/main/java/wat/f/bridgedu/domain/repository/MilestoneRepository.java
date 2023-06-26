@@ -1,9 +1,11 @@
-package wat.f.bridgedu.domain;
+package wat.f.bridgedu.domain.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import wat.f.bridgedu.domain.entity.MilestoneEntity;
 
 @Repository
 public interface MilestoneRepository extends JpaRepository<MilestoneEntity, Long>{

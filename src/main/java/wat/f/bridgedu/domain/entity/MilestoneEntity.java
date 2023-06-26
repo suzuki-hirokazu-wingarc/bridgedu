@@ -1,4 +1,4 @@
-package wat.f.bridgedu.domain;
+package wat.f.bridgedu.domain.entity;
 
 import java.sql.Date;
 import java.util.List;
