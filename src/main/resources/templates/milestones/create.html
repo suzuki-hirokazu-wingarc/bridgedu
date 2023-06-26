@@ -9,7 +9,7 @@
     <h1>Creation</h1>
     <a href="../index.html" th:href="@{/}">Top Page</a>
 
-    <form action="/milestones" th:action=="@{/milestones}" th:object="${milestoneForm}" method="post">
+    <form action="/milestones" th:action="@{/milestones}" th:object="${milestoneForm}" method="post">
         <div>
             <label for="milestone-title">Name</label>
             <input id="milestone-title" type="text" th:field="*{title}">
