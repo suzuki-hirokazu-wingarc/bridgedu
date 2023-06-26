@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
@@ -24,24 +23,29 @@ import wat.f.bridgedu.domain.service.MilestoneService;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("milestones")
 public class MilestoneController {
     private MilestoneService milestoneService;// = new MilestoneService();
     
-    @GetMapping
-    public String showList(@AuthenticationPrincipal UserDetailsImpl user, Model model) {
+    @GetMapping("{username}")
+    public String showList(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        Model model
+    ) {
+        model.addAttribute("username", username);
         model.addAttribute("milestoneList", milestoneService.findByUser(user.getUsername()));
         return "milestones/list";
     }
     
-    @PostMapping
+    @PostMapping("{username}")
     public String create(
         @AuthenticationPrincipal UserDetailsImpl user,
         @Validated MilestoneForm form,
+        @PathVariable("username") String username,
         BindingResult bindingResult, Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return showCreationForm(form);
+            return showCreationForm(form, username, model);
         }
 
         MilestoneEntity milestone = new MilestoneEntity(0,
@@ -51,18 +55,30 @@ public class MilestoneController {
         return "redirect:/milestones";
     }
 
-    @GetMapping("create")
-    public String showCreationForm(@ModelAttribute MilestoneForm form) {
+    @GetMapping("{username}/creation")
+    public String showCreationForm(
+        @ModelAttribute MilestoneForm form,
+        @PathVariable("username") String username,
+        Model model
+    ) {
+        model.addAttribute("username", username);
         return "milestones/create";
     }
     
-    @GetMapping("{id}")
-    public String showDetail(@PathVariable("id") long id, Model model) {
-        model.addAttribute("milestone", milestoneService.find(id));
+    @GetMapping("{username}/{milestoneId}")
+    public String showDetail(
+        @ModelAttribute MilestoneForm form,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        Model model
+    ) {
+        model.addAttribute("username", username);
+        model.addAttribute("milestoneId", milestoneId);
+        model.addAttribute("milestone", milestoneService.find(milestoneId));
         return "milestones/detail";
     }
     
-    @GetMapping("dump")
+    @GetMapping("{username}/dump")
     @ResponseBody
     public String dump(@AuthenticationPrincipal UserDetailsImpl user,Model model) {
         return milestoneService.findByUser(user.getUsername()).toString();
