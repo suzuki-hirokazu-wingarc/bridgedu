@@ -16,6 +16,6 @@ public class MilestoneForm {
     @Size(max = 256)
     private String memo;
     private byte importance;
-    private byte archivement;
+    private byte achievement;
     private Date goal;
 }

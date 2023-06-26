@@ -26,9 +26,9 @@
             <p th:if="${#fields.hasErrors('importance')}" th:errors="*{importance}">(error)</p>
         </div>
         <div>
-            <label for="task-archivement">Archivement</label>
-            <input id="task-archivement" type="number" th:field="*{archivement}"></textarea>
-            <p th:if="${#fields.hasErrors('archivement')}" th:errors="*{archivement}">(error)</p>
+            <label for="task-achievement">Achievement</label>
+            <input id="task-achievement" type="number" th:field="*{achievement}"></textarea>
+            <p th:if="${#fields.hasErrors('achievement')}" th:errors="*{achievement}">(error)</p>
         </div>
         <div>
             <input type="submit" value="Create">

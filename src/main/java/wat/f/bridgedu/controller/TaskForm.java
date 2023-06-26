@@ -14,5 +14,5 @@ public class TaskForm {
     @Size(max = 255)
     private String description;
     private byte importance;
-    private byte archivement;
+    private byte achievement;
 }

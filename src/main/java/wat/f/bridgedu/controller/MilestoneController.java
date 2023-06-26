@@ -44,7 +44,7 @@ public class MilestoneController {
         }
 
         MilestoneEntity milestone = new MilestoneEntity(0,
-            user.getUsername(), form.getTitle(), form.getMemo(), form.getImportance(), form.getArchivement(),
+            user.getUsername(), form.getTitle(), form.getMemo(), form.getImportance(), form.getAchievement(),
             form.getGoal(), Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList());
         milestoneService.create(milestone);
         return "redirect:/milestones";

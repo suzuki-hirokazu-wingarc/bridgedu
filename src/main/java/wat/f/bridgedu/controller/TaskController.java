@@ -48,7 +48,7 @@ public class TaskController {
             form.getName(),
             form.getDescription(),
             form.getImportance(),
-            form.getArchivement()
+            form.getAchievement()
         );
         taskService.create(task);
         return "redirect:/milestones/tasks"; /// TODO 暫定
