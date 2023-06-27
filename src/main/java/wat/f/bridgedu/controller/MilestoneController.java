@@ -1,5 +1,6 @@
 package wat.f.bridgedu.controller;
 
+import org.springframework.context.annotation.Import;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,7 +89,13 @@ public class MilestoneController {
         @PathVariable("milestoneId") long milestoneId,
         Model model
     ) {
-        model.addAttribute("milestone", milestoneService.find(milestoneId));
+        var milestone = milestoneService.find(milestoneId);
+        
+        form.setTitle(milestone.getTitle());
+        form.setMemo(milestone.getMemo());
+        form.setImportance(milestone.getImportance());
+        form.setAchievement(milestone.getAchievement());
+        form.setGoal(milestone.getGoal());
         model.addAttribute("username", username);
         return "milestones/edit";
     }
