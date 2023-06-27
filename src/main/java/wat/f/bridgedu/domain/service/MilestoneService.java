@@ -1,5 +1,8 @@
 package wat.f.bridgedu.domain.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +29,14 @@ public class MilestoneService {
     @Transactional
     public void create(MilestoneEntity milestone) {
         milestoneRepository.save(milestone);
+    }
+
+    @Transactional
+    public void create(String username, String title, String memo, byte importance, byte achievement, Date goal) {
+        milestoneRepository.save(new MilestoneEntity(
+            0, username, title, memo, importance, achievement, goal,
+            Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList()
+        ));
     }
     
 }

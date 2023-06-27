@@ -22,10 +22,10 @@
                     <a th:if="${#request.isUserInRole('ROLE_TEACHER')}" class="nav-link" th:href="@{/students/creation}">生徒作成</a>
                 </li>
                 <li class="nav-item">
-                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link active" th:href="@{/{username}(username=${username})}">マイルストーン</a>
+                    <a class="nav-link active" th:href="@{/{username}(username=${username})}">マイルストーン</a>
                 </li>
                 <li class="nav-item">
-                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{/{username}/creation(username=${username})}">マイルストーン作成</a>
+                    <a class="nav-link" th:href="@{/{username}/creation(username=${username})}">マイルストーン作成</a>
                 </li>
             </ul>
 
