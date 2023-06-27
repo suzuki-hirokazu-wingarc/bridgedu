@@ -36,5 +36,14 @@ create table tasks (
     milestone_id BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL,
     importance TINYINT NOT NULL,
-    achievement TINYINT NOT NULL
+    achievement TINYINT NOT NULL,
+    tag_id BIGINT NOT NULL
+);
+
+drop table if exists tags;
+
+create table tags (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    color VARCHAR(255) NOT NULL
 );
