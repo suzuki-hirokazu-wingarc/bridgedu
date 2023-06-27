@@ -51,7 +51,6 @@ public class TaskController {
             0,
             milestoneId,
             form.getName(),
-            form.getDescription(),
             form.getImportance(),
             form.getAchievement()
         );

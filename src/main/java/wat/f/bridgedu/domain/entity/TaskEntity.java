@@ -25,7 +25,6 @@ public class TaskEntity {
     private long id;
     private long milestoneId;
     private String name;
-    private String description;
     private byte importance;
     private byte achievement;
 }

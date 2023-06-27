@@ -35,7 +35,6 @@ create table tasks (
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     milestone_id BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
     importance TINYINT NOT NULL,
     achievement TINYINT NOT NULL
 );

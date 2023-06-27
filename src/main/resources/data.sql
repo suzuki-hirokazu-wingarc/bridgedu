@@ -22,6 +22,6 @@ INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
 ('student1', '学生1', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true);
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('student1', 'ROLE_STUDENT');
 
-INSERT INTO TASKS(milestone_id, name, description, importance, achievement) values
-(1, 'aaa', 'aaaaaa', 1, 0),
-(2, 'bbb', 'bbbbbb', 1, 0);
+INSERT INTO TASKS(milestone_id, name, importance, achievement) values
+(1, 'aaa', 1, 0),
+(2, 'bbb', 1, 0);
