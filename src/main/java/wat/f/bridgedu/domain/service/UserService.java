@@ -22,6 +22,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<UserEntity> findByAuthority(String authority) {
+        return userRepository.findByAuthorities_Authority(authority);
+    }
+
     @Transactional
     public void create(
         String username,

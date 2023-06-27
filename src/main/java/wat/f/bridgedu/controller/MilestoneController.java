@@ -32,8 +32,11 @@ public class MilestoneController {
         @PathVariable("username") String username,
         Model model
     ) {
+        // if (!user.getUsername().equals(username)) {
+            
+        // }
         model.addAttribute("username", username);
-        model.addAttribute("milestoneList", milestoneService.findByUser(user.getUsername()));
+        model.addAttribute("milestoneList", milestoneService.findByUser(username));
         return "milestones/list";
     }
     
@@ -80,7 +83,11 @@ public class MilestoneController {
     
     @GetMapping("{username}/dump")
     @ResponseBody
-    public String dump(@AuthenticationPrincipal UserDetailsImpl user,Model model) {
-        return milestoneService.findByUser(user.getUsername()).toString();
+    public String dump(
+        @ModelAttribute MilestoneForm form,
+        @PathVariable("username") String username,
+        Model model
+    ) {
+        return milestoneService.findByUser(username).toString();
     }
 }
