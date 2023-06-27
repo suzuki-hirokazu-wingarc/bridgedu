@@ -38,7 +38,14 @@
     </nav>
 
     <div class="container">
-        <h1 class="my-3 ml-3">マイルストーン一覧</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="my-3 ml-3">マイルストーン一覧</h1>
+            <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" th:href="@{../milestones/create}">
+                <button type="button" class="btn btn-primary">作成</button>
+            </a>
+            
+        </div>
+        
         <table class="table table-hover">
             <thead>
                 <tr>
