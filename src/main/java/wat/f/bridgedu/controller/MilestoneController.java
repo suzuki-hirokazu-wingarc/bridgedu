@@ -40,7 +40,7 @@ public class MilestoneController {
         return "milestones/list";
     }
     
-    @PostMapping("{username}")
+    @PostMapping("{username}/creation")
     public String create(
         @AuthenticationPrincipal UserDetailsImpl user,
         @Validated MilestoneForm form,
@@ -55,7 +55,7 @@ public class MilestoneController {
             user.getUsername(), form.getTitle(), form.getMemo(), form.getImportance(), form.getAchievement(),
             form.getGoal(), Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList());
         milestoneService.create(milestone);
-        return "redirect:/milestones";
+        return String.format("redirect:/%s", username);
     }
 
     @GetMapping("{username}/creation")

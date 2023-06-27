@@ -17,6 +17,7 @@ public class IndexController {
         @AuthenticationPrincipal UserDetailsImpl user,
         Model model
     ) {
+        model.addAttribute("username", user.getUsername());
         String authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(""));
         if (authorities.contains("STUDENT")) {
             return String.format("redirect:/%s", user.getUsername());
