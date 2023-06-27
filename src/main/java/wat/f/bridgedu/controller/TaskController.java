@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import wat.f.bridgedu.controller.form.TaskForm;
+import wat.f.bridgedu.domain.entity.TagEntity;
 import wat.f.bridgedu.domain.entity.TaskEntity;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.TaskService;
@@ -53,7 +54,8 @@ public class TaskController {
             form.getName(),
             form.getDescription(),
             form.getImportance(),
-            form.getAchievement()
+            form.getAchievement(),
+            new TagEntity(1, null, null)
         );
         taskService.create(task);
         return String.format("redirect:/%s/%d", username, milestoneId); /// TODO 暫定

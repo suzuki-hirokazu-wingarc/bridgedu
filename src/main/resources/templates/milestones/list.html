@@ -68,7 +68,7 @@
                 </tr>
                 <tr th:each="task : ${milestone.tasks}">
                     <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
-                    <td class="col-8">
+                    <td class="col-8" th:style="'background-color: ' + ${task.tag.color}">
                         <span>➡&nbsp;</span>
                         <span th:text="${task.name}"></span>
                     </td>
