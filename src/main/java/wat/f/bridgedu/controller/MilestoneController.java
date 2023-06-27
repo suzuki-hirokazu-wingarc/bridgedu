@@ -79,6 +79,43 @@ public class MilestoneController {
         model.addAttribute("milestone", milestoneService.find(milestoneId));
         return "milestones/detail";
     }
+
+    @GetMapping("{username}/{milestoneId}/edit")
+    public String showEdit(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @ModelAttribute MilestoneForm form,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        Model model
+    ) {
+        model.addAttribute("milestone", milestoneService.find(milestoneId));
+        model.addAttribute("username", username);
+        return "milestones/edit";
+    }
+
+    @PostMapping("{username}/{milestoneId}/edit")
+    public String showEdit(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        @Validated MilestoneForm form,
+        BindingResult bindingResult, Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            return showEdit(user, form, username, milestoneId, model);
+        }
+
+        milestoneService.update(
+            milestoneId,
+            username,
+            form.getTitle(),
+            form.getMemo(),
+            form.getImportance(),
+            form.getAchievement(),
+            form.getGoal()
+        );
+        return String.format("redirect:/%s", username);
+    }
     
     @GetMapping("{username}/dump")
     @ResponseBody

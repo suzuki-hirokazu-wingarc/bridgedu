@@ -38,5 +38,13 @@ public class MilestoneService {
             Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList()
         ));
     }
+
+    @Transactional
+    public void update(long id, String username, String title, String memo, byte importance, byte achievement, Date goal) {
+        milestoneRepository.save(new MilestoneEntity(
+            id, username, title, memo, importance, achievement, goal,
+            Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList()
+        ));
+    }
     
 }
