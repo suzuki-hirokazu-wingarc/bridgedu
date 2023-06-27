@@ -22,7 +22,7 @@
                     <a th:if="${#request.isUserInRole('ROLE_TEACHER')}" class="nav-link" th:href="@{/students/creation}">生徒作成</a>
                 </li>
                 <li class="nav-item">
-                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link active" th:href="@{/{username}(username=${username})}">マイルストーン</a>
+                    <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{/{username}(username=${username})}">マイルストーン</a>
                 </li>
                 <li class="nav-item">
                     <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" class="nav-link" th:href="@{/{username}/creation(username=${username})}">マイルストーン作成</a>
@@ -40,7 +40,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="my-3 ml-3">マイルストーン一覧</h1>
-            <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" th:href="@{/{username}/creation(username=${username})}">
+            <a th:href="@{/{username}/creation(username=${username})}">
                 <button type="button" class="btn btn-primary">作成</button>
             </a>
             
