@@ -11,6 +11,7 @@ import wat.f.bridgedu.domain.entity.AuthorityEntity;
 import wat.f.bridgedu.domain.entity.UserEntity;
 import wat.f.bridgedu.domain.repository.AuthorityRepository;
 import wat.f.bridgedu.domain.repository.UserRepository;
+import wat.f.bridgedu.domain.service.exception.AlreadyExistUsernameException;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,9 @@ public class UserService {
         String password,
         boolean enabled
     ) {
+        if (userRepository.existsById(username)) {
+            throw new AlreadyExistUsernameException(username);
+        }
         UserEntity user = new UserEntity(username, displayName, password, enabled, Collections.emptyList());
         AuthorityEntity authority = new AuthorityEntity(username, "ROLE_STUDENT");
         userRepository.save(user);
