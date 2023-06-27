@@ -10,9 +10,6 @@ public class TaskForm {
     @NotBlank
     @Size(max = 255)
     private String name;
-    @NotBlank
-    @Size(max = 255)
-    private String description;
     private byte importance;
     private byte achievement;
 }

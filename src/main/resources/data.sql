@@ -22,6 +22,7 @@ INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
 ('student1', '学生1', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true);
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('student1', 'ROLE_STUDENT');
 
+
 INSERT INTO TAGS(name, color) values
 ('defualt', 'transparent'),
 ('国語', '#f5b7b1'),
@@ -30,10 +31,10 @@ INSERT INTO TAGS(name, color) values
 ('社会', '#f5cba7'),
 ('英語', '#e6aae4');
 
-INSERT INTO TASKS(milestone_id, name, description, importance, achievement, tag_id) values
-(1, 'def', 'うわー！', 1, 0, 1),
-(1, 'jap', '赤点', 1, 0, 2),
-(1, 'mat', '赤点', 1, 0, 3),
-(1, 'sci', '赤点', 1, 0, 4),
-(1, 'soc', '赤点', 1, 0, 5),
-(1, 'eng', '赤点', 1, 0, 6);
+INSERT INTO TASKS(milestone_id, name, importance, achievement, tag_id) values
+(1, 'def', 1, 0, 1),
+(1, 'jap', 1, 0, 2),
+(1, 'mat', 1, 0, 3),
+(1, 'sci', 1, 0, 4),
+(1, 'soc', 1, 0, 5),
+(1, 'eng', 1, 0, 6);
