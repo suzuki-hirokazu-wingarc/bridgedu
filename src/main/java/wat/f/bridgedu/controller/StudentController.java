@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
 import wat.f.bridgedu.controller.form.UserForm;
 import wat.f.bridgedu.domain.service.UserService;
+import wat.f.bridgedu.domain.service.exception.AlreadyExistUsernameException;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,20 +32,26 @@ public class StudentController {
     }
     
     @GetMapping("creation")
-    public String showCreation(@ModelAttribute UserForm form) {
+    public String showCreation(@ModelAttribute UserForm form, Model model) {
         return "users/create";
     }
 
     @PostMapping("creation")
     public String create(@Validated UserForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return showCreation(form);
+            return showCreation(form, model);
         }
-        userService.create(
-            form.getName(),
-            form.getDisplayName(),
-            passwordEncoder.encode(form.getPassword()),
-            true);
+        try {
+            userService.create(
+                form.getName(),
+                form.getDisplayName(),
+                passwordEncoder.encode(form.getPassword()),
+                true
+            );
+        } catch (AlreadyExistUsernameException e) {
+            result.rejectValue("name", "error.name.exist", "the username is already exists.");
+            return showCreation(form, model);
+        }
         return "redirect:/students";
     }
 }
