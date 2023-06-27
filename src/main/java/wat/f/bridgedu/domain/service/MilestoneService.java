@@ -1,4 +1,4 @@
-package wat.f.bridgedu.domain;
+package wat.f.bridgedu.domain.service;
 
 import java.util.List;
 
@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import wat.f.bridgedu.domain.entity.MilestoneEntity;
+import wat.f.bridgedu.domain.repository.MilestoneRepository;
 
 @Service
 @RequiredArgsConstructor

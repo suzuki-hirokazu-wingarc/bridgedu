@@ -1,4 +1,4 @@
-package wat.f.bridgedu.controller;
+package wat.f.bridgedu.controller.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
-import wat.f.bridgedu.domain.UserService;
+import wat.f.bridgedu.controller.form.UserForm;
+import wat.f.bridgedu.domain.service.UserService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("users")
-public class UserController {
+@RequestMapping("students")
+public class StudentController {
     private final UserService userService;
     
     @Autowired
@@ -25,25 +26,25 @@ public class UserController {
     
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("userList", userService.findAll());
+        model.addAttribute("userList", userService.findByAuthority("ROLE_STUDENT"));
         return "users/list";
     }
     
-    @GetMapping("create")
-    public String create(@ModelAttribute UserForm form) {
+    @GetMapping("creation")
+    public String showCreation(@ModelAttribute UserForm form) {
         return "users/create";
     }
 
-    @PostMapping
+    @PostMapping("creation")
     public String create(@Validated UserForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return list(model);
+            return showCreation(form);
         }
         userService.create(
             form.getName(),
             form.getDisplayName(),
             passwordEncoder.encode(form.getPassword()),
             true);
-        return "redirect:/users";
+        return "redirect:/students";
     }
 }

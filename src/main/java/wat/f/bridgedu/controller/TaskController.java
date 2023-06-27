@@ -9,49 +9,54 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
-import wat.f.bridgedu.domain.MilestoneService;
-import wat.f.bridgedu.domain.TaskEntity;
-import wat.f.bridgedu.domain.TaskService;
-import wat.f.bridgedu.domain.UserDetailsImpl;
+import wat.f.bridgedu.controller.form.TaskForm;
+import wat.f.bridgedu.domain.entity.TaskEntity;
+import wat.f.bridgedu.domain.entity.UserDetailsImpl;
+import wat.f.bridgedu.domain.service.TaskService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("milestones")
+// @RequestMapping("milestones")
 public class TaskController {
-    private final MilestoneService milestoneService;
     private final TaskService taskService;
 
-    @GetMapping("{id}/create")
-    public String showCreationForm(@PathVariable("id") long id, @ModelAttribute TaskForm form, Model model) {
-        model.addAttribute("milestoneId", id);
+    @GetMapping("{username}/{id}/creation")
+    public String showCreationForm(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("id") long milestoneId,
+        @ModelAttribute TaskForm form,
+        Model model
+    ) {
+        model.addAttribute("milestoneId", milestoneId);
         return "milestones/tasks/create.html";
     }
 
-    @PostMapping("{id}/create")
+    @PostMapping("{username}/{id}/creation")
     public String create(
         @AuthenticationPrincipal UserDetailsImpl user,
         @Validated TaskForm form,
+        @PathVariable("username") String username,
+        @PathVariable("id") long milestoneId,
         BindingResult bindingResult,
-        @PathVariable("id") long id,
         Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return showCreationForm(id, form, model);
+            return showCreationForm(user, username, milestoneId, form, model);
         }
         TaskEntity task = new TaskEntity(
             0,
-            id,
+            milestoneId,
             form.getName(),
             form.getDescription(),
             form.getImportance(),
             form.getAchievement()
         );
         taskService.create(task);
-        return "redirect:/milestones/tasks"; /// TODO 暫定
+        return String.format("redirect:/%s/%d", username, milestoneId); /// TODO 暫定
     }
 
     @GetMapping("tasks")

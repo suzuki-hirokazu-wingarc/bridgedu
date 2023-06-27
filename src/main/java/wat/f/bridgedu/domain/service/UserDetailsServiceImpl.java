@@ -1,4 +1,4 @@
-package wat.f.bridgedu.domain;
+package wat.f.bridgedu.domain.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import wat.f.bridgedu.domain.entity.UserDetailsImpl;
+import wat.f.bridgedu.domain.entity.UserEntity;
+import wat.f.bridgedu.domain.repository.AuthorityRepository;
+import wat.f.bridgedu.domain.repository.UserRepository;
 
 @RequiredArgsConstructor
 @Service

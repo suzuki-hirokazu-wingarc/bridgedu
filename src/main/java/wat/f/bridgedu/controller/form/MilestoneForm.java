@@ -1,4 +1,4 @@
-package wat.f.bridgedu.controller;
+package wat.f.bridgedu.controller.form;
 
 import java.sql.Date;
 
