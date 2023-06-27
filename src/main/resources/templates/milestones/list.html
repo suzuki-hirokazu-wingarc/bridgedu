@@ -38,7 +38,14 @@
     </nav>
 
     <div class="container">
-        <h1 class="my-3 ml-3">マイルストーン一覧</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="my-3 ml-3">マイルストーン一覧</h1>
+            <a th:if="${#request.isUserInRole('ROLE_STUDENT')}" th:href="@{../milestones/create}">
+                <button type="button" class="btn btn-primary">作成</button>
+            </a>
+            
+        </div>
+        
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -47,17 +54,26 @@
                     <th>最終更新日</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="clickable-row" th:data-href="@{/milestones/{id}(id=${milestone.id})}" th:each="milestone : ${milestoneList}">
-
-                    <td>
+            <tbody th:each="milestone : ${milestoneList}">
+                <tr class="clickable-row" th:data-href="@{/milestones/{id}(id=${milestone.id})}" >
+                    <td class="col-2">
                         <span th:text="${milestone.goal}"></span>
                     </td>
-                    <td>
+                    <td class="col-8">
                         <span th:text="${milestone.title}"></span>
                     </td>
-                    <td>
+                    <td class="col-2">
                         <span th:text="${milestone.modified}"></span>
+                    </td>
+                </tr>
+                <tr th:each="task : ${milestone.tasks}">
+                    <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
+                    <td class="col-8">
+                        <span>➡&nbsp;</span>
+                        <span th:text="${task.name}"></span>
+                    </td>
+                    <td class="col-2">
+                        <span> </span>
                     </td>
                 </tr>
             </tbody>
