@@ -1,9 +1,5 @@
 package wat.f.bridgedu.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Collections;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
 import wat.f.bridgedu.controller.form.MilestoneForm;
-import wat.f.bridgedu.domain.entity.MilestoneEntity;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.MilestoneService;
 
@@ -51,10 +46,14 @@ public class MilestoneController {
             return showCreationForm(form, username, model);
         }
 
-        MilestoneEntity milestone = new MilestoneEntity(0,
-            user.getUsername(), form.getTitle(), form.getMemo(), form.getImportance(), form.getAchievement(),
-            form.getGoal(), Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList());
-        milestoneService.create(milestone);
+        milestoneService.create(
+            username,
+            form.getTitle(),
+            form.getMemo(),
+            form.getImportance(),
+            form.getAchievement(),
+            form.getGoal()
+        );
         return String.format("redirect:/%s", username);
     }
 
