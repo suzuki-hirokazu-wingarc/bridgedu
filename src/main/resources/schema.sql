@@ -1,12 +1,12 @@
-drop table if exists users;
+-- drop table if exists users;
 
-create table users (
-    -- id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL PRIMARY KEY,
-    display_name  VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    enabled BOOLEAN NOT NULL
-);
+-- create table users (
+--     -- id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--     name VARCHAR(255) NOT NULL PRIMARY KEY,
+--     display_name  VARCHAR(255) NOT NULL,
+--     password VARCHAR(255) NOT NULL,
+--     enabled BOOLEAN NOT NULL
+-- );
 
 drop table if exists authorities;
 
@@ -46,4 +46,15 @@ create table tags (
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     color VARCHAR(255) NOT NULL
+);
+
+drop table if exists comments;
+
+create table comments (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    milestone_id BIGINT NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    body VARCHAR(255) NOT NULL,
+    created DATE NOT NULL,
+    enabled BOOLEAN NOT NULL
 );

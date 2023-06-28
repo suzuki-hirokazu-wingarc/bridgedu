@@ -35,7 +35,7 @@ public class MilestoneService {
     public void create(String username, String title, String memo, byte importance, byte achievement, Date goal) {
         milestoneRepository.save(new MilestoneEntity(
             0, username, title, memo, importance, achievement, goal,
-            Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList()
+            Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList(), Collections.emptyList()
         ));
     }
 
@@ -44,7 +44,7 @@ public class MilestoneService {
         MilestoneEntity milestone = milestoneRepository.findById(id).get();
         milestoneRepository.save(new MilestoneEntity(
             id, username, title, memo, importance, achievement, goal,
-            milestone.getCreated(), Date.valueOf(LocalDate.now()), milestone.getTasks()
+            milestone.getCreated(), Date.valueOf(LocalDate.now()), milestone.getTasks(), Collections.emptyList()
         ));
     }
     

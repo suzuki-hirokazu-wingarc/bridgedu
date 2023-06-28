@@ -38,3 +38,8 @@ INSERT INTO TASKS(milestone_id, name, importance, achievement, tag_id) values
 (1, 'sci', 1, 0, 4),
 (1, 'soc', 1, 0, 5),
 (1, 'eng', 1, 0, 6);
+
+INSERT INTO COMMENTS(milestone_id, username, body, created, enabled) values
+(1, 'admin', 'いいね！', '2000-1-1', true),
+(1, 'admin', 'よくないね！', '2000-1-1', true),
+(1, 'admin', 'owata', '2000-1-1', false);
