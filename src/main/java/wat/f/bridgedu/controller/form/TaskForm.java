@@ -13,5 +13,5 @@ public class TaskForm {
     private String name;
     private byte importance;
     private byte achievement;
-    private byte tagId;
+    private Long tagId;
 }

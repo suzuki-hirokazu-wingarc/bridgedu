@@ -53,20 +53,64 @@ public class TaskController {
         if (bindingResult.hasErrors()) {
             return showCreationForm(user, username, milestoneId, form, model);
         }
-        TaskEntity task = new TaskEntity(
-            0,
-            milestoneId,
-            form.getName(),
-            form.getImportance(),
-            form.getAchievement(),
-            tagService.find(form.getTagId())
-        );
         try {
-            taskService.create(task);
+            taskService.create(
+                milestoneId,
+                form.getName(),
+                form.getImportance(),
+                form.getAchievement(),
+                tagService.find(form.getTagId())
+            );
         } catch (NoSuchElementException e) {
             return showCreationForm(user, username, milestoneId, form, model);
         }
         return String.format("redirect:/%s/%d", username, milestoneId); /// TODO 暫定
+    }
+
+    @GetMapping("{username}/{milestoneId}/{taskId}/edit")
+    public String showEdit(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @ModelAttribute TaskForm form,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") Long milestoneId,
+        @PathVariable("taskId") Long taskId,
+        Model model
+    ) {
+        var task = taskService.find(taskId);
+
+        form.setName(task.getName());
+        form.setAchievement(task.getAchievement());
+        form.setImportance(task.getImportance());
+        form.setTagId(task.getTag().getId());
+
+        model.addAttribute("username", username);
+        model.addAttribute("milestoneId", milestoneId);
+        model.addAttribute("tagList", tagService.findAll());
+        return "milestones/tasks/edit";
+    }
+
+    @PostMapping("{username}/{milestoneId}/{taskId}/edit")
+    public String showEdit(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") Long milestoneId,
+        @PathVariable("taskId") Long taskId,
+        @Validated TaskForm form,
+        BindingResult bindingResult,
+        Model model
+    ) {
+        if (bindingResult.hasErrors()){
+            return showEdit(user, form, username, milestoneId, taskId, model);
+        }
+
+        taskService.update(
+            taskId,
+            form.getName(),
+            form.getImportance(),
+            form.getAchievement(),
+            taskService.find(form.getTagId()).getTag()
+        );
+        return String.format("redirect:/%s/%s", username, milestoneId);
     }
 
     @GetMapping("tasks")
