@@ -1,7 +1,7 @@
 insert into milestones (username, title, memo, importance, achievement, goal, created, modified) values
-('student1', '5月テスト', '8割', 1, 50, '2023-5-20', '2023-4-4', '2023-4-4'),
-('student1', '模試', 'A判定', 5, 0, '2023-9-20', '2023-4-4', '2023-4-4'),
-('student1', '受験', '合格', 10, 0, '2024-3-3', '2023-4-4', '2023-4-4');
+('student1', '5月テスト', '8割', 3, 5, '2023-5-20', '2023-4-4', '2023-4-4'),
+('student1', '模試', 'A判定', 4, 5, '2023-9-20', '2023-4-4', '2023-4-4'),
+('student1', '受験', '合格', 5, 0, '2024-3-3', '2023-4-4', '2023-4-4');
 
 INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
 ('admin', '管理者', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true);
