@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import wat.f.bridgedu.domain.entity.TagEntity;
 
 @Data
 public class TaskForm {
@@ -12,4 +13,5 @@ public class TaskForm {
     private String name;
     private byte importance;
     private byte achievement;
+    private byte tagId;
 }
