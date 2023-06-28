@@ -1,6 +1,7 @@
 package wat.f.bridgedu.controller;
 
-import org.springframework.context.annotation.Import;
+import java.util.NoSuchElementException;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,14 +48,18 @@ public class MilestoneController {
             return showCreationForm(form, username, model);
         }
 
-        milestoneService.create(
-            username,
-            form.getTitle(),
-            form.getMemo(),
-            form.getImportance(),
-            form.getAchievement(),
-            form.getGoal()
-        );
+        try {
+            milestoneService.create(
+                username,
+                form.getTitle(),
+                form.getMemo(),
+                form.getImportance(),
+                form.getAchievement(),
+                form.getGoal()
+            );
+        } catch (NoSuchElementException e) {
+            return showCreationForm(form, username, model);
+        }
         return String.format("redirect:/%s", username);
     }
 
