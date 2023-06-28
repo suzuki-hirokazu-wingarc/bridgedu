@@ -66,10 +66,12 @@
                         <span th:text="${milestone.goal}"></span>
                     </td>
                     <td>
-                        <span th:text="${milestone.importance}"></span>
+                        <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < milestone.importance?'★':'☆'}"></span>
                     </td>
                     <td>
-                        <span th:text="${milestone.achievement}"></span>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" th:style="'width: ' + ${milestone.achievement} + '%'" th:aria-valuenow="${milestone.achievement}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </td>
                     <td>
                         <span th:text="${milestone.created}"></span>
@@ -102,10 +104,12 @@
                             <span th:text="${task.name}"></span>
                         </td>
                         <td class="col-2">
-                            <span th:text="${task.importance}"></span>
+                            <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < task.importance?'★':'☆'}"></span>
                         </td>
                         <td class="col-2">
-                            <span th:text="${task.achievement}"></span>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" th:style="'width: ' + ${task.achievement} + '%'" th:aria-valuenow="${milestone.achievement}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </td>
                         <td class="col-1">
                             <a th:href="@{/{username}/{milestoneId}/{taskId}/edit(username=${username}, milestoneId=${milestone.id}, taskId=${task.id})}">
