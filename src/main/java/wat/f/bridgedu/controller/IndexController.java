@@ -1,8 +1,5 @@
 package wat.f.bridgedu.controller;
 
-import java.util.stream.Collectors;
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +15,7 @@ public class IndexController {
         Model model
     ) {
         model.addAttribute("username", user.getUsername());
-        String authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(""));
-        if (authorities.contains("STUDENT")) {
+        if (AccessControlUtils.containsRole(user, "STUDENT")) {
             return String.format("redirect:/%s", user.getUsername());
         } else {
             return "redirect:/students";

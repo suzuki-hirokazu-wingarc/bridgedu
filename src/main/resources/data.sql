@@ -22,6 +22,10 @@ INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
 ('student1', '学生1', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true);
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('student1', 'ROLE_STUDENT');
 
+INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
+('student2', '学生2', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true);
+INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('student2', 'ROLE_STUDENT');
+
 
 INSERT INTO TAGS(name, color) values
 ('default', 'transparent'),
