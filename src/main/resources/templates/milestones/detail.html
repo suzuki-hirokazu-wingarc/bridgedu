@@ -90,7 +90,7 @@
                 <thead>
                     <tr>
                         <th>名前</th>
-                        <th>最終更新日</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,7 +100,9 @@
                             <span th:text="${task.name}"></span>
                         </td>
                         <td class="col-2">
-                            <span> </span>
+                            <a th:href="@{/{username}/{milestoneId}/{taskId}/edit(username=${username}, milestoneId=${milestone.id}, taskId=${task.id})}">
+                                <button class="btn-sm btn-success">編集</button>
+                            </a>
                         </td>
                     </tr>
                 </tbody>
