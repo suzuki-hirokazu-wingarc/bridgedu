@@ -16,6 +16,7 @@ import wat.f.bridgedu.controller.form.TaskForm;
 import wat.f.bridgedu.domain.entity.TagEntity;
 import wat.f.bridgedu.domain.entity.TaskEntity;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
+import wat.f.bridgedu.domain.service.TagService;
 import wat.f.bridgedu.domain.service.TaskService;
 
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ import wat.f.bridgedu.domain.service.TaskService;
 // @RequestMapping("milestones")
 public class TaskController {
     private final TaskService taskService;
+    private final TagService tagService;
 
     @GetMapping("{username}/{id}/creation")
     public String showCreationForm(
@@ -33,6 +35,7 @@ public class TaskController {
         Model model
     ) {
         model.addAttribute("milestoneId", milestoneId);
+        model.addAttribute("tagList", tagService.findAll());
         return "milestones/tasks/create.html";
     }
 
@@ -54,7 +57,7 @@ public class TaskController {
             form.getName(),
             form.getImportance(),
             form.getAchievement(),
-            new TagEntity(1, null, null)
+            tagService.find(form.getTagId())
         );
         taskService.create(task);
         return String.format("redirect:/%s/%d", username, milestoneId); /// TODO 暫定

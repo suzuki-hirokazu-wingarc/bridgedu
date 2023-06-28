@@ -62,6 +62,12 @@
                     1以上5以下で設定する必要があります
                 </div>
             </div>
+            <div class="form-group has-error">
+                <label for="task-tag" class="form-label">タグ</label>
+                <select id="task-tag" th:field="*{tagId}">
+                    <option th:each="tag : ${tagList}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                </select>
+            </div>
             <div>
                 <input type="submit" value="Create" class="btn btn-primary">
             </div>

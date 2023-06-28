@@ -24,7 +24,7 @@ INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ('student1', 'ROLE_STUDENT'
 
 
 INSERT INTO TAGS(name, color) values
-('defualt', 'transparent'),
+('default', 'transparent'),
 ('国語', '#f5b7b1'),
 ('数学', '#85c1e9'),
 ('理科', '#82e0aa'),
