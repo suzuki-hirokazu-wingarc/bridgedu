@@ -129,7 +129,7 @@ public class MilestoneController {
             form.getAchievement(),
             form.getGoal()
         );
-        return String.format("redirect:/%s", username);
+        return String.format("redirect:/%s/%s", username, milestoneId);
     }
     
     @GetMapping("{username}/dump")
