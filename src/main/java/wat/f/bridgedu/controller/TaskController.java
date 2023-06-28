@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import wat.f.bridgedu.controller.form.TaskForm;
-import wat.f.bridgedu.domain.entity.TagEntity;
-import wat.f.bridgedu.domain.entity.TaskEntity;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.TagService;
 import wat.f.bridgedu.domain.service.TaskService;
@@ -36,6 +33,8 @@ public class TaskController {
         @ModelAttribute TaskForm form,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         model.addAttribute("milestoneId", milestoneId);
         model.addAttribute("tagList", tagService.findAll());
         return "milestones/tasks/create.html";
@@ -50,6 +49,8 @@ public class TaskController {
         BindingResult bindingResult,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         if (bindingResult.hasErrors()) {
             return showCreationForm(user, username, milestoneId, form, model);
         }
@@ -76,6 +77,8 @@ public class TaskController {
         @PathVariable("taskId") Long taskId,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         var task = taskService.find(taskId);
 
         form.setName(task.getName());
@@ -99,6 +102,8 @@ public class TaskController {
         BindingResult bindingResult,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         if (bindingResult.hasErrors()){
             return showEdit(user, form, username, milestoneId, taskId, model);
         }
@@ -113,9 +118,9 @@ public class TaskController {
         return String.format("redirect:/%s/%s", username, milestoneId);
     }
 
-    @GetMapping("tasks")
-    @ResponseBody
-    public String dumpAllTasks() {
-        return taskService.findAll().toString();
-    }
+    // @GetMapping("tasks")
+    // @ResponseBody
+    // public String dumpAllTasks() {
+    //     return taskService.findAll().toString();
+    // }
 }

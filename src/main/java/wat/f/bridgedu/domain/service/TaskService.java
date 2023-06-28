@@ -51,5 +51,5 @@ public class TaskService {
 
     public TaskEntity find(Long id) {
         return taskRepository.findById(id).get();
-    }    
+    }
 }
