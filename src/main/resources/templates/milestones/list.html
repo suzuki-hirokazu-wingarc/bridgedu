@@ -81,7 +81,7 @@
                         <span th:text="${milestone.modified}"></span>
                     </td>
                 </tr>
-                <tr th:each="task : ${milestone.tasks}">
+                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}">
                     <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
                     <td class="col-5" th:style="'background-color: ' + ${task.tag.color}">
                         <span>➡&nbsp;</span>
