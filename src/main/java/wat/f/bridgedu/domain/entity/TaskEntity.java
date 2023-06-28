@@ -29,6 +29,7 @@ public class TaskEntity {
     private String name;
     private byte importance;
     private byte achievement;
+    private boolean enabled;
     @OneToOne
     @JoinColumn(name = "tag_id")
     private TagEntity tag;

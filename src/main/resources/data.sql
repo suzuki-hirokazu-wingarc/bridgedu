@@ -35,13 +35,14 @@ INSERT INTO TAGS(name, color) values
 ('社会', '#f5cba7'),
 ('英語', '#e6aae4');
 
-INSERT INTO TASKS(milestone_id, name, importance, achievement, tag_id) values
-(1, 'def', 1, 0, 1),
-(1, 'jap', 1, 0, 2),
-(1, 'mat', 1, 0, 3),
-(1, 'sci', 1, 0, 4),
-(1, 'soc', 1, 0, 5),
-(1, 'eng', 1, 0, 6);
+INSERT INTO TASKS(milestone_id, name, importance, achievement, enabled, tag_id) values
+(1, 'def', 1, 0, true, 1),
+(1, 'jap', 1, 0, true, 2),
+(1, 'mat', 1, 0, true, 3),
+(1, 'sci', 1, 0, true, 4),
+(1, 'soc', 1, 0, true, 5),
+(1, 'eng', 1, 0, true, 6),
+(1, 'non', 1, 0, false, 1);
 
 INSERT INTO COMMENTS(milestone_id, username, body, created, enabled) values
 (1, 'admin', 'いいね！', '2000-1-1', true),

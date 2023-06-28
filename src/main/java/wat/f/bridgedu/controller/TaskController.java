@@ -93,7 +93,7 @@ public class TaskController {
     }
 
     @PostMapping("{username}/{milestoneId}/{taskId}/edit")
-    public String showEdit(
+    public String edit(
         @AuthenticationPrincipal UserDetailsImpl user,
         @PathVariable("username") String username,
         @PathVariable("milestoneId") Long milestoneId,
@@ -115,6 +115,24 @@ public class TaskController {
             form.getAchievement(),
             form.getTagId()
         );
+        return String.format("redirect:/%s/%s", username, milestoneId);
+    }
+
+    @PostMapping("{username}/{milestoneId}/{taskId}/deletion")
+    public String delete(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") Long milestoneId,
+        @PathVariable("taskId") Long taskId, 
+        Model model
+    ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
+        try {
+            taskService.disable(taskId);
+        } catch (NoSuchElementException e) {
+            return String.format("redirect:/%s/%s", username, milestoneId);
+        }
         return String.format("redirect:/%s/%s", username, milestoneId);
     }
 
