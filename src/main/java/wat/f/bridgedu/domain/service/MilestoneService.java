@@ -41,9 +41,10 @@ public class MilestoneService {
 
     @Transactional
     public void update(long id, String username, String title, String memo, byte importance, byte achievement, Date goal) {
+        MilestoneEntity milestone = milestoneRepository.findById(id).get();
         milestoneRepository.save(new MilestoneEntity(
             id, username, title, memo, importance, achievement, goal,
-            Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), Collections.emptyList()
+            milestone.getCreated(), Date.valueOf(LocalDate.now()), milestone.getTasks()
         ));
     }
     

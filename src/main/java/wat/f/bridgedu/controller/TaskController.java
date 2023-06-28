@@ -1,5 +1,7 @@
 package wat.f.bridgedu.controller;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +61,11 @@ public class TaskController {
             form.getAchievement(),
             tagService.find(form.getTagId())
         );
-        taskService.create(task);
+        try {
+            taskService.create(task);
+        } catch (NoSuchElementException e) {
+            return showCreationForm(user, username, milestoneId, form, model);
+        }
         return String.format("redirect:/%s/%d", username, milestoneId); /// TODO 暫定
     }
 
