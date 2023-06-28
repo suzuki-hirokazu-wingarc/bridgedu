@@ -25,4 +25,11 @@ public class CommentService {
             0, milestoneId, body, Date.valueOf(LocalDate.now()), true, user
         ));
     }
+
+    @Transactional
+    public void update(long commentId, boolean enabled) {
+        CommentEntity comment = commentRepository.findById(commentId).get();
+        comment.setEnabled(enabled);
+        commentRepository.save(comment);
+    }
 }

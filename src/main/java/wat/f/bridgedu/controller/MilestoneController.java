@@ -151,14 +151,33 @@ public class MilestoneController {
         BindingResult bindingResult, Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return showDetail(form, username, milestoneId, model);
+            return showDetail(form, user.getUsername(), milestoneId, model);
         }
 
         commentService.create(
             milestoneId,
-            username,
+            user.getUsername(),
             form.getBody()
         );
+        return String.format("redirect:/%s/%d", username, milestoneId);
+    }
+    
+    @PostMapping("{username}/{milestoneId}/comment/{commentId}/deletion")
+    public String deleteComment(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        @PathVariable("commentId") long commentId,
+        CommentForm form,
+        Model model
+    ) {
+
+        try {
+            commentService.update(commentId, false);
+        } catch (NoSuchElementException e) {
+            return showDetail(form, username, milestoneId, model);
+        }
+        
         return String.format("redirect:/%s/%d", username, milestoneId);
     }
 }
