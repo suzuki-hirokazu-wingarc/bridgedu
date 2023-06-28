@@ -108,7 +108,7 @@ public class TaskController {
             form.getName(),
             form.getImportance(),
             form.getAchievement(),
-            taskService.find(form.getTagId()).getTag()
+            form.getTagId()
         );
         return String.format("redirect:/%s/%s", username, milestoneId);
     }

@@ -12,6 +12,7 @@ import wat.f.bridgedu.domain.entity.MilestoneEntity;
 import wat.f.bridgedu.domain.entity.TagEntity;
 import wat.f.bridgedu.domain.entity.TaskEntity;
 import wat.f.bridgedu.domain.repository.MilestoneRepository;
+import wat.f.bridgedu.domain.repository.TagRepository;
 import wat.f.bridgedu.domain.repository.TaskRepository;
 
 @Service
@@ -19,6 +20,7 @@ import wat.f.bridgedu.domain.repository.TaskRepository;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final MilestoneRepository milestoneRepository;
+    private final TagRepository tagRepository;
 
     public List<TaskEntity> findAll() {
         return taskRepository.findAll();
@@ -38,8 +40,9 @@ public class TaskService {
     }
 
     @Transactional
-    public void update(Long id, String name, byte importance, byte achievement, TagEntity tag){
+    public void update(Long id, String name, byte importance, byte achievement, Long tagId){
         TaskEntity task = taskRepository.findById(id).get();
+        TagEntity tag = tagRepository.findById(tagId).get();
         taskRepository.save(new TaskEntity(
             id, task.getMilestoneId(), name, importance, achievement, tag
         ));
