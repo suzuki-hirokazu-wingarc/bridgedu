@@ -47,7 +47,10 @@
                 <a th:href="@{/{username}/{id}/creation(username=${username}, id=${milestone.id})}">
                     <button class="btn btn-primary">タスク作成</button>
                 </a>
-            </div>            
+                <form th:action="@{/{username}/{milestoneId}/deletion(username=${username}, milestoneId=${milestone.id})}" method="post" novalidate>
+                    <button type="submit" class="btn btn-danger">削除</button>
+                </form>
+            </div>
         </div>
         
         <table class="table">

@@ -35,6 +35,7 @@ public class MilestoneEntity {
     private Date goal;
     private Date created;
     private Date modified;
+    private boolean enabled;
     @OneToMany(mappedBy = "milestoneId")
     private List<TaskEntity> tasks;
     @OneToMany(mappedBy = "milestoneId")

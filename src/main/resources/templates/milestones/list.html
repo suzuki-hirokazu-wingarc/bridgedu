@@ -61,7 +61,7 @@
                     <th class="col-2">最終更新日</th>
                 </tr>
             </thead>
-            <tbody th:each="milestone : ${milestoneList}">
+            <tbody th:each="milestone : ${milestoneList}" th:if="${milestone.enabled}">
                 <tr class="clickable-row hoverable" th:data-href="@{/{username}/{id}(username=${username}, id=${milestone.id})}" >
                     <td class="col-2">
                         <span th:text="${milestone.goal}"></span>
