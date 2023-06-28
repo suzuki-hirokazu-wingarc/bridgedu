@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import wat.f.bridgedu.controller.form.CommentForm;
 import wat.f.bridgedu.controller.form.MilestoneForm;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.CommentService;
 import wat.f.bridgedu.domain.service.MilestoneService;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 public class MilestoneController {
-    private MilestoneService milestoneService;// = new MilestoneService();
-    private CommentService commentService;
+    private final MilestoneService milestoneService;// = new MilestoneService();
+    private final CommentService commentService;
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public String forbidden() {
