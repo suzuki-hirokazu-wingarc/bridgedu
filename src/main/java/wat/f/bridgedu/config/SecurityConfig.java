@@ -23,6 +23,7 @@ public class SecurityConfig {
             .authorizeRequests(auth -> auth.anyRequest().hasAnyRole("ADMIN", "TEACHER", "STUDENT"))
             .formLogin(auth -> auth.loginPage("/login")
             .usernameParameter("username").passwordParameter("password"))
+            .logout(auth -> auth.logoutUrl("/logout").logoutSuccessUrl("/login"))
             .build();
     }
 
