@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
+import wat.f.bridgedu.controller.form.CommentForm;
 import wat.f.bridgedu.controller.form.MilestoneForm;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
+import wat.f.bridgedu.domain.service.CommentService;
 import wat.f.bridgedu.domain.service.MilestoneService;
 
 @AllArgsConstructor
 @Controller
 public class MilestoneController {
     private MilestoneService milestoneService;// = new MilestoneService();
+    private CommentService commentService;
     
     @GetMapping("{username}")
     public String showList(
@@ -75,7 +78,7 @@ public class MilestoneController {
     
     @GetMapping("{username}/{milestoneId}")
     public String showDetail(
-        @ModelAttribute MilestoneForm form,
+        @ModelAttribute CommentForm commentForm,
         @PathVariable("username") String username,
         @PathVariable("milestoneId") long milestoneId,
         Model model
@@ -137,5 +140,44 @@ public class MilestoneController {
         Model model
     ) {
         return milestoneService.findByUser(username).toString();
+    }
+    
+    @PostMapping("{username}/{milestoneId}/comment/post")
+    public String postComment(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        @Validated CommentForm form,
+        BindingResult bindingResult, Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            return showDetail(form, user.getUsername(), milestoneId, model);
+        }
+
+        commentService.create(
+            milestoneId,
+            user.getUsername(),
+            form.getBody()
+        );
+        return String.format("redirect:/%s/%d", username, milestoneId);
+    }
+    
+    @PostMapping("{username}/{milestoneId}/comment/{commentId}/deletion")
+    public String deleteComment(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        @PathVariable("commentId") long commentId,
+        CommentForm form,
+        Model model
+    ) {
+
+        try {
+            commentService.update(commentId, false);
+        } catch (NoSuchElementException e) {
+            return showDetail(form, username, milestoneId, model);
+        }
+        
+        return String.format("redirect:/%s/%d", username, milestoneId);
     }
 }

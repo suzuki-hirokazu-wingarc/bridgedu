@@ -117,8 +117,44 @@
             </table>
         </div>
         
-        <label for="inputComment" class="form-label">コメント</label>
-        <input id="inputComment" type="text" class="form-control"><button class="btn btn-primary">追加</button>
+        <form th:action="@{/{username}/{id}/comment/post(username=${username}, id=${milestone.id})}" th:object="${commentForm}" method="post" class="needs-validation" novalidate>
+            <label for="input-comment" class="form-label">コメント</label>
+            <textarea id="input-comment" cols="30" rows="2" th:field="*{body}" class="form-control" required></textarea>
+            <button class="btn btn-primary">追加</button>
+        </form>
+
+        <div class="container">
+            <h3 class="my-3 ml-3">コメント一覧</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>投稿者（投稿日）</th>
+                        <th>本文</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="comment : ${milestone.comments}">
+                        <th:block th:if="${comment.enabled}">
+                            <td class="col-3">
+                                <span th:text="${comment.user.displayName}+'（'+${comment.created}+'）'"></span>
+                            </td>
+                            <td class="col-8">
+                                <th:block th:each="str, stat : ${comment.body.split('\r\n|\r|\n', -1)}">
+                                    <th:block th:text="${str}"/>
+                                    <br th:if="${!stat.last}"/>
+                                </th:block>
+                            </td>
+                            <td class="col-1">
+                                <form th:if="${#request.isUserInRole('ROLE_ADMIN') || #request.isUserInRole('ROLE_TEACHER') || #request.getRemoteUser() == comment.user.name}" th:action="@{/{username}/{mId}/comment/{cId}/deletion(username=${username}, mId=${comment.milestoneId}, cId=${comment.id})}" th:object="${commentForm}" method="post" class="needs-validation" novalidate>
+                                    <button class="btn btn-danger">削除</button>
+                                </form>
+                            </td>
+                        </th:block>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
