@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             UserEntity userEntity = userDetailsRepository.findById(username).get();
             System.out.println(userEntity);
             List<GrantedAuthority> authorities = authorityRepository.findByUsername(username).stream()
-                .map(a -> new SimpleGrantedAuthority(a.getAuthority()))
+                .map(a -> new SimpleGrantedAuthority(a.getRole().toString()))
                 .collect(Collectors.toList());
             UserDetails userDetails = UserDetailsImpl.from(userEntity, authorities);
             return userDetails;
