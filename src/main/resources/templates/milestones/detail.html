@@ -5,9 +5,13 @@
     <title>Details | BRIDGE</title>
 </head>
 <body>
-    <th:block th:replace="fragments/nav :: nav"></th:block>
+    <th:block th:replace="fragments/navDetail :: nav"></th:block>
+
 
     <div class="container">
+        <div class="d-flex justify-content-between align-items-left">
+            <a class="btn" th:href="@{/{username}(username=${username})}" role="button">戻る</a>
+        </div>
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="my-3 ml-3" th:text="${milestone.title}"></h1>
             <div>
