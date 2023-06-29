@@ -38,7 +38,13 @@
     </nav>
 
     <div class="container">
-        <h1 class="my-3 ml-3">タスク編集a</h1>
+        <h1 class="my-3 ml-3">タスク編集</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="my-3 ml-3">タスク</h1>
+            <form th:action="@{/{username}/{milestoneId}/{taskId}/deletion(username=${username}, milestoneId=${milestoneId}, taskId=${taskId})}" method="post" novalidate>
+                <button type="submit" class="btn btn-danger has-delete-dialog">タスク削除</button>
+            </form>
+        </div>
 
         <form th:action="@{/{username}/{milestoneId}/{taskId}/edit(username=${username}, milestoneId=${milestoneId}, taskId=${taskId})}" th:object="${taskForm}" method="post">
             <div class="form-group">
