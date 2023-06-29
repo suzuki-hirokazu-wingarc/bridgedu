@@ -120,6 +120,7 @@ public class MilestoneController {
         form.setAchievement(milestone.getAchievement());
         form.setGoal(milestone.getGoal());
         model.addAttribute("username", username);
+        model.addAttribute("milestoneId", milestoneId);
         return "milestones/edit";
     }
 
