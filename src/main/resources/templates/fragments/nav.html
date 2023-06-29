@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div>
-        <a class="navbar-brand " th:href="@{/}">BRIDGEDU</a>
+        <a class="navbar-brand " th:href="@{/}">
+            <img style="width: 40px; height: 40px; object-fit: cover;" th:src="@{/public/favicon}">
+            <span>BRIDGEDU</span>
+        </a>
         <div  class="nav-item" th:if="${loginUser != null}" style="display: inline-block;">
             <div class="icon-wrap" style="width: auto; height: auto;">
                 <img id="icon-preview" style="width: 40px; height: 40px; object-fit: cover;" th:if="${loginUser.icon != null}" th:src="${loginUser.icon.base64()}">
