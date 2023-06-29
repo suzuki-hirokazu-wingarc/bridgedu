@@ -65,7 +65,7 @@
             <div class="form-group has-error">
                 <label for="task-tag" class="form-label">タグ</label>
                 <select id="task-tag" th:field="*{tagId}">
-                    <option th:each="tag : ${tagList}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                    <option th:each="tag : ${tagList}" th:value="${tag.id}" th:text="${tag.name}" th:style="'background-color: ' + ${tag.color}"></option>
                 </select>
             </div>
             <div>
