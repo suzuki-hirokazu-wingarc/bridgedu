@@ -37,6 +37,7 @@ public class TaskController {
             return "forbidden";
         model.addAttribute("milestoneId", milestoneId);
         model.addAttribute("tagList", tagService.findAll());
+        form.setImportance((byte)3);
         return "milestones/tasks/create.html";
     }
 
