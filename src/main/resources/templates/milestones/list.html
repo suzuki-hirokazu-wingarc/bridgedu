@@ -51,6 +51,11 @@
             </a>
         </div>
         
+        <div class="container">
+            <input type="checkbox" id="hide-completed">
+            <label for="hide-completed">達成率100%を非表示にする</label>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -62,7 +67,7 @@
                 </tr>
             </thead>
             <tbody th:each="milestone : ${milestoneList}" th:if="${milestone.enabled}">
-                <tr class="clickable-row hoverable" th:data-href="@{/{username}/{id}(username=${username}, id=${milestone.id})}" >
+                <tr th:class="(${milestone.achievement} == 100? 'completed': 'not-completed') + ' clickable-row hoverable'" th:data-href="@{/{username}/{id}(username=${username}, id=${milestone.id})}" >
                     <td class="col-2">
                         <span th:text="${milestone.goal}"></span>
                     </td>
@@ -81,7 +86,7 @@
                         <span th:text="${milestone.modified}"></span>
                     </td>
                 </tr>
-                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}">
+                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}"  th:class="((${milestone.achievement} == 100 or ${task.achievement} == 100)? 'completed': 'not-completed')">
                     <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
                     <td class="col-5" th:style="'background-color: ' + ${task.tag.color}">
                         <span>➡&nbsp;</span>
@@ -112,6 +117,16 @@
                 window.location = $(this).data("href");
             });
         });
+
+        jQuery(document).ready(function($){
+            $('#hide-completed').change(function() {
+                if($(this).is(':checked')){
+                    $('.completed').hide();
+                }else{
+                    $('.completed').show();
+                }
+            })
+        })
     </script>
 </body>
 </html>
