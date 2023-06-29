@@ -1,5 +1,11 @@
 package wat.f.bridgedu.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -39,6 +45,7 @@ public class StudentController {
     @PostMapping("creation")
     public String create(@Validated UserForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            System.out.println(result.toString());
             return showCreation(form, model);
         }
         try {
@@ -46,10 +53,23 @@ public class StudentController {
                 form.getName(),
                 form.getDisplayName(),
                 passwordEncoder.encode(form.getPassword()),
-                true
+                true,
+                new SerialBlob(form.getIcon().getBytes())
             );
         } catch (AlreadyExistUsernameException e) {
             result.rejectValue("name", "error.name.exist", "the username is already exists.");
+            return showCreation(form, model);
+        } catch (SerialException e) {
+            e.printStackTrace();
+            result.rejectValue("icon", "error.icon.invalid", "the usericon is invalid.");
+            return showCreation(form, model);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            result.rejectValue("icon", "error.icon.invalid", "the usericon is invalid.");
+            return showCreation(form, model);
+        } catch (IOException e) {
+            e.printStackTrace();
+            result.rejectValue("icon", "error.icon.invalid", "the usericon is invalid.");
             return showCreation(form, model);
         }
         return "redirect:/students";

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,4 +31,7 @@ public class UserEntity {
     private boolean enabled;
     @OneToMany(mappedBy = "username", fetch = FetchType.EAGER)
     private List<AuthorityEntity> authorities;
+    @ManyToOne
+    @JoinColumn(name = "icon_id")
+    private UserIconEntity icon;
 }
