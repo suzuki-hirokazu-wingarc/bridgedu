@@ -41,10 +41,9 @@
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="my-3 ml-3">マイルストーン編集</h1>
             <form th:action="@{/{username}/{milestoneId}/deletion(username=${username}, milestoneId=${milestoneId})}" method="post" novalidate>
-                <button type="submit" class="btn btn-danger">マイルストーン削除</button>
+                <button type="submit" class="btn btn-danger has-delete-dialog">マイルストーン削除</button>
             </form>
         </div>
-        
 
         <form th:action="@{/{username}/{milestoneId}/edit(username=${username}, milestoneId=${milestoneId})}" th:object="${milestoneForm}" method="post" class="needs-validation" novalidate>
             <div class="form-group">
@@ -114,6 +113,13 @@
             }, false)
             })
         })()
+
+        const message = "本当に削除しますか"
+        $('.has-delete-dialog').click(function(){
+            if(!confirm(message)){
+                return false;
+            }
+        });
     </script>
 </body>
 </html>
