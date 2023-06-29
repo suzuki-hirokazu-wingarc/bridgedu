@@ -17,6 +17,7 @@ import wat.f.bridgedu.controller.form.TaskForm;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.TagService;
 import wat.f.bridgedu.domain.service.TaskService;
+import wat.f.bridgedu.domain.service.UserService;
 
 @RequiredArgsConstructor
 @Controller
@@ -24,6 +25,7 @@ import wat.f.bridgedu.domain.service.TaskService;
 public class TaskController {
     private final TaskService taskService;
     private final TagService tagService;
+    private final UserService userService;
 
     @GetMapping("{username}/{id}/creation")
     public String showCreationForm(
@@ -35,6 +37,7 @@ public class TaskController {
     ) {
         if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
             return "forbidden";
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         model.addAttribute("milestoneId", milestoneId);
         model.addAttribute("tagList", tagService.findAll());
         return "milestones/tasks/create.html";
@@ -86,6 +89,7 @@ public class TaskController {
         form.setImportance(task.getImportance());
         form.setTagId(task.getTag().getId());
 
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         model.addAttribute("username", username);
         model.addAttribute("milestoneId", milestoneId);
         model.addAttribute("tagList", tagService.findAll());

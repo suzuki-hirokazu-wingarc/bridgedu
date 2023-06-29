@@ -21,6 +21,7 @@ import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.CommentService;
 import wat.f.bridgedu.domain.service.MilestoneService;
 import wat.f.bridgedu.domain.service.TagService;
+import wat.f.bridgedu.domain.service.UserService;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,9 +29,11 @@ public class MilestoneController {
     private final MilestoneService milestoneService;// = new MilestoneService();
     private final CommentService commentService;
     private final TagService tagService;
+    private final UserService userService;
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public String forbidden() {
+    public String forbidden(@AuthenticationPrincipal UserDetailsImpl user, Model model) {
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         return "forbidden";
     }
     
@@ -42,6 +45,7 @@ public class MilestoneController {
     ) {
         if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
             return "forbidden";
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         model.addAttribute("username", username);
         model.addAttribute("milestoneList", milestoneService.findByUser(username));
         model.addAttribute("tagList", tagService.findAll());
@@ -60,6 +64,7 @@ public class MilestoneController {
         if (bindingResult.hasErrors()) {
             return showCreationForm(user, form, username, model);
         }
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
 
         try {
             milestoneService.create(
@@ -85,6 +90,7 @@ public class MilestoneController {
     ) {
         if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
             return "forbidden";
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         model.addAttribute("username", username);
         return "milestones/create";
     }
@@ -99,6 +105,7 @@ public class MilestoneController {
     ) {
         if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
             return "forbidden";
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         model.addAttribute("username", username);
         model.addAttribute("milestoneId", milestoneId);
         model.addAttribute("milestone", milestoneService.find(milestoneId));
@@ -122,6 +129,7 @@ public class MilestoneController {
         form.setImportance(milestone.getImportance());
         form.setAchievement(milestone.getAchievement());
         form.setGoal(milestone.getGoal());
+        model.addAttribute("loginUser", userService.find(user.getUsername()));
         model.addAttribute("username", username);
         model.addAttribute("milestoneId", milestoneId);
         return "milestones/edit";

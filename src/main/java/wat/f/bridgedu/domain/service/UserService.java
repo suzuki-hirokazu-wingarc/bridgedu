@@ -50,6 +50,10 @@ public class UserService {
         return userRepository.findByAuthorities_Role(role);
     }
 
+    public UserEntity find(String username) {
+        return userRepository.findById(username).get();
+    }
+
     @Transactional
     public void create(
         String username,
