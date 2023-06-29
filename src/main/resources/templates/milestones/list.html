@@ -62,7 +62,7 @@
                         <span th:text="${milestone.modified}"></span>
                     </td>
                 </tr>
-                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}"  th:class="((${milestone.achievement} == 100 or ${task.achievement} == 100)? 'completed': 'not-completed') + ' tag-' + ${task.id} + ' filterable-task'">
+                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}"  th:class="((${milestone.achievement} == 100 or ${task.achievement} == 100)? 'completed': 'not-completed') + ' tag-' + ${task.tag.id} + ' filterable-task'">
                     <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
                     <td class="col-5" th:style="'background-color: ' + ${task.tag.color}">
                         <span>➡&nbsp;</span>
