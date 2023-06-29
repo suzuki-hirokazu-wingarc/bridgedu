@@ -20,12 +20,14 @@ import wat.f.bridgedu.controller.form.MilestoneForm;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.CommentService;
 import wat.f.bridgedu.domain.service.MilestoneService;
+import wat.f.bridgedu.domain.service.TagService;
 
 @RequiredArgsConstructor
 @Controller
 public class MilestoneController {
     private final MilestoneService milestoneService;// = new MilestoneService();
     private final CommentService commentService;
+    private final TagService tagService;
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public String forbidden() {
@@ -42,6 +44,7 @@ public class MilestoneController {
             return "forbidden";
         model.addAttribute("username", username);
         model.addAttribute("milestoneList", milestoneService.findByUser(username));
+        model.addAttribute("tagList", tagService.findAll());
         return "milestones/list";
     }
     
