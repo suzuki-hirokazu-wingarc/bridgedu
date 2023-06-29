@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import wat.f.bridgedu.controller.UserRole;
 import wat.f.bridgedu.domain.entity.AuthorityEntity;
 import wat.f.bridgedu.domain.entity.UserEntity;
 import wat.f.bridgedu.domain.repository.AuthorityRepository;
@@ -23,8 +24,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<UserEntity> findByAuthority(String authority) {
-        return userRepository.findByAuthorities_Authority(authority);
+    public List<UserEntity> findByRole(UserRole role) {
+        return userRepository.findByAuthorities_Role(role);
     }
 
     @Transactional
@@ -38,7 +39,7 @@ public class UserService {
             throw new AlreadyExistUsernameException(username);
         }
         UserEntity user = new UserEntity(username, displayName, password, enabled, Collections.emptyList());
-        AuthorityEntity authority = new AuthorityEntity(username, "ROLE_STUDENT");
+        AuthorityEntity authority = new AuthorityEntity(username, UserRole.ROLE_STUDENT);
         userRepository.save(user);
         authorityRepository.save(authority);
     }

@@ -27,7 +27,7 @@ public class StudentController {
     
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("userList", userService.findByAuthority("ROLE_STUDENT"));
+        model.addAttribute("userList", userService.findByRole(UserRole.ROLE_STUDENT));
         return "users/list";
     }
     
