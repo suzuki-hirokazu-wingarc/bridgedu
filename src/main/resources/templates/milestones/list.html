@@ -51,6 +51,17 @@
             </a>
         </div>
         
+        <div class="container">
+            <input type="checkbox" id="hide-completed">
+            <label for="hide-completed">達成率100%を非表示にする</label><br>
+
+            <label for="task-tag" class="form-label">タグ</label>
+            <select id="task-tag">
+                <option value="all">All</option>
+                <option th:each="tag : ${tagList}" th:value="${tag.id}" th:text="${tag.name}" th:style="'background-color: ' + ${tag.color}"></option>
+            </select>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -62,7 +73,7 @@
                 </tr>
             </thead>
             <tbody th:each="milestone : ${milestoneList}" th:if="${milestone.enabled}">
-                <tr class="clickable-row hoverable" th:data-href="@{/{username}/{id}(username=${username}, id=${milestone.id})}" >
+                <tr th:class="(${milestone.achievement} == 100? 'completed': 'not-completed') + ' clickable-row hoverable filterable-milestone'" th:data-href="@{/{username}/{id}(username=${username}, id=${milestone.id})}" >
                     <td class="col-2">
                         <span th:text="${milestone.goal}"></span>
                     </td>
@@ -81,7 +92,7 @@
                         <span th:text="${milestone.modified}"></span>
                     </td>
                 </tr>
-                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}">
+                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}"  th:class="((${milestone.achievement} == 100 or ${task.achievement} == 100)? 'completed': 'not-completed') + ' tag-' + ${task.id} + ' filterable-task'">
                     <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
                     <td class="col-5" th:style="'background-color: ' + ${task.tag.color}">
                         <span>➡&nbsp;</span>
@@ -110,6 +121,42 @@
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
                 window.location = $(this).data("href");
+            });
+
+            function isCompleted(t){
+                return t.hasClass('completed') && $('#hide-completed').is(':checked');
+            }
+
+            function isFilteredByTag(t){
+                if($('#task-tag').val() === 'all') return false;
+                return !t.hasClass('tag-' + $('#task-tag').val());
+            }
+
+            $('#task-tag').change(function() {
+                $(".filterable-task").each(function() {
+                    if(isCompleted($(this)) || isFilteredByTag($(this))){
+                        $(this).hide();
+                    }else{
+                        $(this).show();
+                    }
+                });
+            });
+
+            $('#hide-completed').change(function() {
+                $(".filterable-milestone").each(function(){
+                    if(isCompleted($(this))){
+                        $(this).hide();
+                    }else{
+                        $(this).show();
+                    }
+                });
+                $(".filterable-task").each(function() {
+                    if(isCompleted($(this)) || isFilteredByTag($(this))){
+                        $(this).hide();
+                    }else{
+                        $(this).show();
+                    }
+                });
             });
         });
     </script>
