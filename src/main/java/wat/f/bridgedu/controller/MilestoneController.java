@@ -86,6 +86,7 @@ public class MilestoneController {
         if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
             return "forbidden";
         model.addAttribute("username", username);
+        form.setImportance((byte)3);
         return "milestones/create";
     }
     
