@@ -49,34 +49,51 @@
             <a th:href="@{/{username}/creation(username=${username})}">
                 <button type="button" class="btn btn-primary">作成</button>
             </a>
-            
         </div>
         
         <table class="table">
             <thead>
                 <tr>
-                    <th>目標日</th>
-                    <th>名前</th>
-                    <th>最終更新日</th>
+                    <th class="col-2">目標日</th>
+                    <th class="col-5">名前</th>
+                    <th class="col-1">重要度</th>
+                    <th class="col-2">達成率</th>
+                    <th class="col-2">最終更新日</th>
                 </tr>
             </thead>
-            <tbody th:each="milestone : ${milestoneList}">
+            <tbody th:each="milestone : ${milestoneList}" th:if="${milestone.enabled}">
                 <tr class="clickable-row hoverable" th:data-href="@{/{username}/{id}(username=${username}, id=${milestone.id})}" >
                     <td class="col-2">
                         <span th:text="${milestone.goal}"></span>
                     </td>
-                    <td class="col-8">
+                    <td class="col-5">
                         <span th:text="${milestone.title}"></span>
+                    </td>
+                    <td class="col-1">
+                        <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < milestone.importance?'★':'☆'}"></span>
+                    </td>
+                    <td class="col-2">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" th:style="'width: ' + ${milestone.achievement} + '%'" th:aria-valuenow="${milestone.achievement}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </td>
                     <td class="col-2">
                         <span th:text="${milestone.modified}"></span>
                     </td>
                 </tr>
-                <tr th:each="task : ${milestone.tasks}">
+                <tr th:each="task : ${milestone.tasks}" th:if="${task.enabled}">
                     <td class="col-2" style="border-right: 1px solid #dee2e6;"></td>
-                    <td class="col-8" th:style="'background-color: ' + ${task.tag.color}">
+                    <td class="col-5" th:style="'background-color: ' + ${task.tag.color}">
                         <span>➡&nbsp;</span>
                         <span th:text="${task.name}"></span>
+                    </td>
+                    <td class="col-1">
+                        <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < task.importance?'★':'☆'}"></span>
+                    </td>
+                    <td class="col-2">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" th:style="'width: ' + ${task.achievement} + '%'" th:aria-valuenow="${milestone.achievement}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </td>
                     <td class="col-2">
                         <span> </span>

@@ -39,7 +39,7 @@
 
     <div class="container">
         <h1 class="my-3 ml-3">生徒作成</h1>
-        <form th:action="@{/students/creation}" th:object="${userForm}" method="post" class="needs-validation" novalidate>
+        <form th:action="@{/students/creation}" th:object="${userForm}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="form-group has-error">
                 <label for="username" class="form-label">id</label>
                 <input id="username" type="text" th:field="*{name}" class="form-control" required><br>
@@ -61,6 +61,19 @@
                     不正な入力値です
                 </div>
             </div>
+            <div class="form-group has-error">
+                <label for="user-icon" class="form-label">アイコン</label>
+                <input id="user-icon" type="file" th:field="*{icon}" class="form-control" accept="image/png" onchange="previewIcon(this);"><br>
+                <div class="invalid-feedback">
+                    不正な入力値です
+                </div>
+            </div>
+            <div class="form-group has-error">
+                <label for="icon-preview" class="form-label">プレビュー</label>
+                <div class="icon-wrap" style="width: auto; height: auto;">
+                    <img id="icon-preview" style="width: 100px; height: 100px; object-fit: cover;">
+                </div>
+            </div>
             <!-- <label>画像</label><input type="image"><br> -->
             <button type="submit" class="btn btn-primary">生徒作成</button>
         </form>
@@ -69,6 +82,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+        function previewIcon(img) {
+            let iconReader = new FileReader();
+            iconReader.onload = () => {
+                $('#icon-preview').attr('src', iconReader.result);
+            }
+            iconReader.readAsDataURL(img.files[0]);
+        };
+    </script>
     <script>
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {

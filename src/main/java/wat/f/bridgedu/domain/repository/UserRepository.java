@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import wat.f.bridgedu.controller.UserRole;
 import wat.f.bridgedu.domain.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, String> {
-    public List<UserEntity> findByAuthorities_Authority(String authority);
+    public List<UserEntity> findByAuthorities_Role(UserRole role);
     // @Select("select * from users")
     // List<UserEntity> findAll();
 

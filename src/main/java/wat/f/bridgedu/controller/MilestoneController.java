@@ -2,6 +2,7 @@ package wat.f.bridgedu.controller;
 
 import java.util.NoSuchElementException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,20 +12,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import wat.f.bridgedu.controller.form.CommentForm;
 import wat.f.bridgedu.controller.form.MilestoneForm;
 import wat.f.bridgedu.domain.entity.UserDetailsImpl;
 import wat.f.bridgedu.domain.service.CommentService;
 import wat.f.bridgedu.domain.service.MilestoneService;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 public class MilestoneController {
-    private MilestoneService milestoneService;// = new MilestoneService();
-    private CommentService commentService;
+    private final MilestoneService milestoneService;// = new MilestoneService();
+    private final CommentService commentService;
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public String forbidden() {
+        return "forbidden";
+    }
     
     @GetMapping("{username}")
     public String showList(
@@ -32,9 +38,8 @@ public class MilestoneController {
         @PathVariable("username") String username,
         Model model
     ) {
-        // if (!user.getUsername().equals(username)) {
-            
-        // }
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         model.addAttribute("username", username);
         model.addAttribute("milestoneList", milestoneService.findByUser(username));
         return "milestones/list";
@@ -47,8 +52,10 @@ public class MilestoneController {
         @PathVariable("username") String username,
         BindingResult bindingResult, Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         if (bindingResult.hasErrors()) {
-            return showCreationForm(form, username, model);
+            return showCreationForm(user, form, username, model);
         }
 
         try {
@@ -61,28 +68,34 @@ public class MilestoneController {
                 form.getGoal()
             );
         } catch (NoSuchElementException e) {
-            return showCreationForm(form, username, model);
+            return showCreationForm(user, form, username, model);
         }
         return String.format("redirect:/%s", username);
     }
 
     @GetMapping("{username}/creation")
     public String showCreationForm(
+        @AuthenticationPrincipal UserDetailsImpl user,
         @ModelAttribute MilestoneForm form,
         @PathVariable("username") String username,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         model.addAttribute("username", username);
         return "milestones/create";
     }
     
     @GetMapping("{username}/{milestoneId}")
     public String showDetail(
+        @AuthenticationPrincipal UserDetailsImpl user,
         @ModelAttribute CommentForm commentForm,
         @PathVariable("username") String username,
         @PathVariable("milestoneId") long milestoneId,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         model.addAttribute("username", username);
         model.addAttribute("milestoneId", milestoneId);
         model.addAttribute("milestone", milestoneService.find(milestoneId));
@@ -97,6 +110,8 @@ public class MilestoneController {
         @PathVariable("milestoneId") long milestoneId,
         Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         var milestone = milestoneService.find(milestoneId);
         
         form.setTitle(milestone.getTitle());
@@ -105,17 +120,20 @@ public class MilestoneController {
         form.setAchievement(milestone.getAchievement());
         form.setGoal(milestone.getGoal());
         model.addAttribute("username", username);
+        model.addAttribute("milestoneId", milestoneId);
         return "milestones/edit";
     }
 
     @PostMapping("{username}/{milestoneId}/edit")
-    public String showEdit(
+    public String edit(
         @AuthenticationPrincipal UserDetailsImpl user,
         @PathVariable("username") String username,
         @PathVariable("milestoneId") long milestoneId,
         @Validated MilestoneForm form,
         BindingResult bindingResult, Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         if (bindingResult.hasErrors()) {
             return showEdit(user, form, username, milestoneId, model);
         }
@@ -129,18 +147,32 @@ public class MilestoneController {
             form.getAchievement(),
             form.getGoal()
         );
+        return String.format("redirect:/%s/%s", username, milestoneId);
+    }
+
+    @PostMapping("{username}/{milestoneId}/deletion")
+    public String disable(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        Model model
+    ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
+
+        milestoneService.disable(milestoneId);
         return String.format("redirect:/%s", username);
     }
     
-    @GetMapping("{username}/dump")
-    @ResponseBody
-    public String dump(
-        @ModelAttribute MilestoneForm form,
-        @PathVariable("username") String username,
-        Model model
-    ) {
-        return milestoneService.findByUser(username).toString();
-    }
+    // @GetMapping("{username}/dump")
+    // @ResponseBody
+    // public String dump(
+    //     @ModelAttribute MilestoneForm form,
+    //     @PathVariable("username") String username,
+    //     Model model
+    // ) {
+    //     return milestoneService.findByUser(username).toString();
+    // }
     
     @PostMapping("{username}/{milestoneId}/comment/post")
     public String postComment(
@@ -150,8 +182,10 @@ public class MilestoneController {
         @Validated CommentForm form,
         BindingResult bindingResult, Model model
     ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         if (bindingResult.hasErrors()) {
-            return showDetail(form, user.getUsername(), milestoneId, model);
+            return showDetail(user, form, user.getUsername(), milestoneId, model);
         }
 
         commentService.create(
@@ -171,11 +205,12 @@ public class MilestoneController {
         CommentForm form,
         Model model
     ) {
-
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
         try {
             commentService.update(commentId, false);
         } catch (NoSuchElementException e) {
-            return showDetail(form, username, milestoneId, model);
+            return showDetail(user, form, username, milestoneId, model);
         }
         
         return String.format("redirect:/%s/%d", username, milestoneId);
