@@ -4,8 +4,8 @@ insert into milestones (username, title, memo, importance, achievement, goal, cr
 ('student1', '受験', '合格', 5, 0, '2024-3-3', '2023-4-4', '2023-4-4', true),
 ('student1', '検閲済み', '検閲済み', 5, 0, '2024-3-3', '2023-4-4', '2023-4-4', false);
 
-INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED) VALUES
-('admin', '管理者', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true);
+INSERT INTO USERS (NAME, display_name, PASSWORD, ENABLED, icon_id) VALUES
+('admin', '管理者', '$2a$10$vC.r53zKYPwEXplBYH3mxuZP52r2u3udRcEg9yTUmwYE5yjmoUXyG', true, 1);
 INSERT INTO AUTHORITIES (USERNAME, ROLE) VALUES ('admin', 'ROLE_ADMIN');
 -- INSERT INTO AUTHORITIES (USERNAME, ROLE) VALUES ('admin', 'ROLE_TEACHER');
 -- INSERT INTO AUTHORITIES (USERNAME, ROLE) VALUES ('admin', 'ROLE_STUDENT');
