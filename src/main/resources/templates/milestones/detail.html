@@ -66,7 +66,7 @@
                         <span th:text="${milestone.goal}"></span>
                     </td>
                     <td>
-                        <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < milestone.importance?'★':'☆'}"></span>
+                        <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < milestone.importance?'★':'☆'}" style="font-weight: bold; color: #DAA520;"></span>
                     </td>
                     <td>
                         <div class="progress">
@@ -105,7 +105,7 @@
                             <span th:text="${task.name}"></span>
                         </td>
                         <td class="col-2">
-                            <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < task.importance?'★':'☆'}"></span>
+                            <span th:each="i : ${#numbers.sequence(0,4)}" th:text="${i < task.importance?'★':'☆'}" style="font-weight: bold; color: #DAA520;"></span>
                         </td>
                         <td class="col-2">
                             <div class="progress">
