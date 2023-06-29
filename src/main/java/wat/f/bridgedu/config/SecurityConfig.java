@@ -16,6 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .authorizeRequests(auth -> auth.antMatchers("/login**").permitAll())
+            .authorizeRequests(auth -> auth.antMatchers("/public**").permitAll())
             .authorizeRequests(auth -> auth.antMatchers("/students").hasAnyRole("ADMIN", "TEACHER"))
             .authorizeRequests(auth -> auth.antMatchers("/h2-console/**").hasRole("ADMIN"))
             .csrf(auth -> auth.ignoringAntMatchers("/h2-console/**"))
