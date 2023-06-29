@@ -124,7 +124,7 @@ public class MilestoneController {
     }
 
     @PostMapping("{username}/{milestoneId}/edit")
-    public String showEdit(
+    public String edit(
         @AuthenticationPrincipal UserDetailsImpl user,
         @PathVariable("username") String username,
         @PathVariable("milestoneId") long milestoneId,
@@ -147,6 +147,20 @@ public class MilestoneController {
             form.getGoal()
         );
         return String.format("redirect:/%s/%s", username, milestoneId);
+    }
+
+    @PostMapping("{username}/{milestoneId}/deletion")
+    public String disable(
+        @AuthenticationPrincipal UserDetailsImpl user,
+        @PathVariable("username") String username,
+        @PathVariable("milestoneId") long milestoneId,
+        Model model
+    ) {
+        if (AccessControlUtils.isNotAccessibleStudentPage(user, username))
+            return "forbidden";
+
+        milestoneService.disable(milestoneId);
+        return String.format("redirect:/%s", username);
     }
     
     // @GetMapping("{username}/dump")

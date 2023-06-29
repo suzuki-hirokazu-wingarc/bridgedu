@@ -26,9 +26,13 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public List<TaskEntity> findAllEnabled() {
+        return taskRepository.findByEnabled(true);
+    }
+
     @Transactional
     public void create(Long milestoneId, String name, byte importance, byte achievement, TagEntity tag) {
-        this.create(new TaskEntity(0, milestoneId, name, importance, achievement, tag));
+        this.create(new TaskEntity(0, milestoneId, name, importance, achievement, true, tag));
     }
 
     @Transactional
@@ -44,12 +48,19 @@ public class TaskService {
         TaskEntity task = taskRepository.findById(id).get();
         TagEntity tag = tagRepository.findById(tagId).get();
         taskRepository.save(new TaskEntity(
-            id, task.getMilestoneId(), name, importance, achievement, tag
+            id, task.getMilestoneId(), name, importance, achievement, true, tag
         ));
 
         MilestoneEntity milestone = milestoneRepository.findById(task.getMilestoneId()).get();
         milestone.setModified(Date.valueOf(LocalDate.now()));
         milestoneRepository.save(milestone);
+    }
+
+    @Transactional
+    public void disable(long id) {
+        TaskEntity task = taskRepository.findById(id).get();
+        task.setEnabled(false);
+        taskRepository.save(task);
     }
 
     public TaskEntity find(Long id) {
