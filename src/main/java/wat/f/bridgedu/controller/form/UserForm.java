@@ -3,6 +3,8 @@ package wat.f.bridgedu.controller.form;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -16,5 +18,5 @@ public class UserForm {
     @NotBlank
     @Size(max = 64)
     private String password;
-    // private boolean enabled;
+    private MultipartFile icon;
 }

@@ -42,16 +42,22 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th></th>
                     <th>学生番号</th>
                     <th>氏名</th>
                 </tr>
             </thead>
-                <tr class="clickable-row" th:data-href="@{/{name}(name=${user.name})}" th:each="user : ${userList}">
+                <tr class="clickable-row" th:data-href="@{/{name}(name=${user.name})}" th:each="user : ${userList}" th:if="${user.enabled}">
                     <!-- TODO 非teacherなら表示する必要アリ -->
-                    <td th:if="${user.enabled}">
+                    <td>
+                        <div class="icon-wrap" style="width: auto; height: auto;">
+                            <img id="icon-preview" style="width: 50px; height: 50px; object-fit: cover;" th:if="${user.icon != null}" th:src="${user.icon.base64()}">
+                        </div>
+                    </td>
+                    <td>
                         <span th:text="${user.name}"></span>
                     </td>
-                    <td th:if="${user.enabled}">
+                    <td>
                         <span th:text="${user.displayName}"></span>
                     </td>
                 </tr>

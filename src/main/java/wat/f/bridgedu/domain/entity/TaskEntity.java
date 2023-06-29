@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class TaskEntity {
     private byte importance;
     private byte achievement;
     private boolean enabled;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "tag_id")
     private TagEntity tag;
 }

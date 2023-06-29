@@ -116,6 +116,9 @@
                             <a th:href="@{/{username}/{milestoneId}/{taskId}/edit(username=${username}, milestoneId=${milestone.id}, taskId=${task.id})}">
                                 <button class="btn-sm btn-success">編集</button>
                             </a>
+                            <form th:action="@{/{username}/{milestoneId}/{taskId}/deletion(username=${username}, milestoneId=${milestone.id}, taskId=${task.id})}" method="post" novalidate>
+                                <button class="btn-sm btn-danger">削除</button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
